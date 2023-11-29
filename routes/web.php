@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 // ***************** BACKEND ******************* //
 
 
-Route::get('/', function () {
-    return view('frontend/index');
-});
+// Route::get('/', function () {
+//     return view('frontend/index');
+// });
 
-Route::get('/your-route', [YourControllerName::class, 'yourControllerAction']);
+Route::get('/', [HomeController::class, 'index']);
 
 
 Auth::routes();
