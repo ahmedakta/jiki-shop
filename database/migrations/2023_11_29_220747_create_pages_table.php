@@ -19,11 +19,11 @@ return new class extends Migration
             $table->text('page_title');
             $table->text('page_slug');
             $table->longText('page_desc');
-            $table->string('meta_title');
-            $table->string('meta_desc');
-            $table->string('meta_keywords');
-            $table->string('page_configs');
-            $table->integer('status');
+            $table->string('meta_title')->nullable();
+            $table->string('meta_desc')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->string('page_configs')->nullable();
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

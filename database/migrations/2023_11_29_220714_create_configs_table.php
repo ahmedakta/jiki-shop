@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
-            $table->string('config_title');
+            $table->string('config_title')->nullable();
             $table->string('configs');
             $table->string('config_type');
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('category_name');
             $table->string('category_slug');
             $table->string('category_desc');
-            $table->string('category_configs');
-            $table->string('status');
+            $table->string('category_configs')->nullable();
+            $table->string('status')->default(1);
             $table->timestamps();
         });
     }
