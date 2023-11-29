@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('Frontend/index');
+    return view('frontend/index');
 });
 
 Route::get('/your-route', [YourControllerName::class, 'yourControllerAction']);
