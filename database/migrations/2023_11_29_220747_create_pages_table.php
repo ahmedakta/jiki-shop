@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->integer('language_id');
+            $table->integer('language_id')->default(1);
             $table->integer('category_id');
             $table->integer('parent_id');
             $table->text('page_title');
