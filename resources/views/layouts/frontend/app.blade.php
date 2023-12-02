@@ -30,6 +30,8 @@
 	<link rel="stylesheet" href="{{asset('theme/css/ion.rangeSlider.skinFlat.css')}}" />
 	<link rel="stylesheet" href="{{asset('theme/css/magnific-popup.css')}}">
 	<link rel="stylesheet" href="{{asset('theme/css/main.css')}}">
+
+
 </head>
 
 <body>
@@ -200,6 +202,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="{{asset('theme/js/gmaps.min.js')}}"></script>
 	<script src="{{asset('theme/js/main.js')}}"></script>
+	
 </body>
 
 </html>
