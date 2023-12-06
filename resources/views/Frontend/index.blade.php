@@ -1,5 +1,4 @@
 @extends('layouts.frontend.app')
-
 @section('content')
 	<!-- start banner Area -->
 	<section class="banner-area">

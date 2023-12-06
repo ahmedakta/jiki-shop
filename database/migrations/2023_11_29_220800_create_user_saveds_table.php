@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('user_saveds', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id');
+            $table->unsignedBigInteger('category_id');
             $table->integer('user_id');
             $table->integer('saved_id');
             $table->integer('status')->default(1);
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

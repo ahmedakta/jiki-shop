@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->integer('language_id')->default(1);
-            $table->integer('category_id');
+            $table->unsignedBigInteger('category_id');
             $table->integer('parent_id');
             $table->text('page_title');
             $table->text('page_slug');
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('meta_keywords')->nullable();
             $table->string('page_configs')->nullable();
             $table->integer('status')->default(1);
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
