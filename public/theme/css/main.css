@@ -5790,4 +5790,20 @@ label {
   .footer-text i {
     color: #ffba00; }
 
+
+/* FROM HERE I STARTED TO ADD CSS */
+
+/* Profile Settings Section */
+.profile_sections{
+  margin-top:3rem;
+}
+
+/* seperator */
+.seperator{
+  width: 100%;
+  margin: 2rem;
+  border: 1px solid #e0e0e0;
+}
+/* END OF SECTION */
+
 /*# sourceMappingURL=main.css.map */

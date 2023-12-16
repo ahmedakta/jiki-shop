@@ -54,7 +54,7 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
+                            <li class="nav-item {{Route::currentRouteName() == 'home' ? 'active' : '' }}"><a class="nav-link" href="{{route('home')}}">Home</a></li>
                             <li class="nav-item submenu dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                     aria-haspopup="true" aria-expanded="false">Shop</a>
@@ -89,17 +89,69 @@
                                 </ul>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                            @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item {{Route::currentRouteName() == 'login' ? 'active' : '' }}">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <li class="nav-item  {{Route::currentRouteName() == 'register' ? 'active' : '' }}">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item submenu dropdown">
+                                <a href="#" class="nav-link" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true"
+                                    aria-expanded="false"><span class="ti-user"></span> {{ Auth::user()->name }}</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a  class="nav-link"  href="{{route('user.profile')}}">
+                                            {{ __('Profile') }}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a  class="nav-link"  href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endguest
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="nav-item">
-                                <a href="#" class="cart"><span class="ti-user"></span></a>
-                            </li>
                             <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a>
+                            </li>
+                            <li class="nav-item submenu dropdown">
+                                <a href="#" class="dropdown-toggle"><span class="ti-world"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <button class="search"><span class="lnr lnr-magnifier"
                                         id="search"></span></button>
                             </li>
+
+                            {{-- <li class="nav-item submenu dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true"
+                                    aria-expanded="false">{{ __('EN') }}</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
+                                </ul>
+                            </li> --}}
                         </ul>
 
                     </div>
