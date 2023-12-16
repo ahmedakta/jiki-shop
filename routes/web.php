@@ -50,3 +50,13 @@ Route::group(['prefix' => 'blogs'], function () {
 });
 
 
+// Group for basket-related routes with 'cart' prefix
+Route::group(['prefix' => 'cart'], function () {
+    // Route for displaying all blogs
+    Route::get('/cart', [PageController::class, 'index'])->name('blog.index');
+
+    // Route for displaying a specific blog
+    Route::get('/{id}', [PageController::class, 'show'])->name('blog.show');
+    // Add more blog-related routes here
+});
+
