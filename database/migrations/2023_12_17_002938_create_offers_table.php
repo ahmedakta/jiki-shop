@@ -17,7 +17,10 @@ return new class extends Migration
             $table->string('offer_title')->nullable();
             $table->longText('offer_desc')->nullable();
             $table->string('offer_configs')->nullable();
+            $table->decimal('offer_discount_percentage', 5, 2)->nullable();
             $table->integer('status')->default('0');
+            $table->date('offer_start_date')->nullable();
+            $table->date('offer_end_date')->nullable();
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories');

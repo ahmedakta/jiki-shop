@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Offer;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,8 @@ class HomeController extends Controller
     public function index()
     {
         // Main Slider Offer
-        // $sliderOffer = Offer::
+        $sliderOffer = Offer::where('offer_title' , '=' , 'Slider Offers')->with('products')->first();
+        // dd($sliderOffer);
         return view('frontend.index');
     }
 }

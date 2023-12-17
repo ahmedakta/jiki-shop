@@ -56,6 +56,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
+
         // Some Categories
         Category::factory()->count(5)->create();
 
@@ -64,7 +65,12 @@ class DatabaseSeeder extends Seeder
 
         // Some Offers
         Offer::factory()->count(5)->create();
-
+        \App\Models\Offer::factory()->create([
+            'category_id' => 3,
+            'offer_title' => 'Slider Offers',
+            'offer_desc' => 'Slider Offers Category', //asdasdasd
+            'status' => 1, //asdasdasd
+        ]);
         // Get all the roles attaching up to 3 random roles to each user
         $offers = Offer::all();
 
