@@ -25,8 +25,9 @@ return new class extends Migration
             $table->boolean('profile_emailme');
             $table->integer('profile_newsltter')->comment('Newsltter subsrcription');
             $table->integer('profile_zip_code');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

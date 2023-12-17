@@ -18,12 +18,12 @@ class ProductFactory extends Factory
     {
         return [
             'language_id' => 1,
-            'category_id' => 1,
+            'category_id' => rand(1, 5),
             'currency_id' => 1,
             'product_title' => $this->faker->word,
             'product_desc' => $this->faker->paragraph,
             'product_keywords' => $this->faker->word,
-            'product_cofigs' => "[{'test':'hi'}]",
+            'product_configs' => "[{'test':'hi'}]",
             'product_price' => $this->faker->randomFloat(2, 10, 1000),
             'status' => 1,
         ];

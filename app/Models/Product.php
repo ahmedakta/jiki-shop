@@ -25,5 +25,10 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class , 'category_id');
     }
+    // Set offers relation
+    public function offers()
+    {
+        return $this->belongsToMany(Offer::class);
+    }
 
 }

@@ -23,6 +23,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Main Slider Offer
+        // $sliderOffer = Offer::
         return view('frontend.index');
     }
 }
