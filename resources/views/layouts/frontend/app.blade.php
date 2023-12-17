@@ -31,7 +31,8 @@
     <link rel="stylesheet" href="{{ asset('theme/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/css/main.css') }}">
 
-
+    <!-- Include AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
 <body>
@@ -102,7 +103,7 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item submenu dropdown">
+                            <li class="nav-item submenu dropdown  {{Route::currentRouteName() == 'user.profile' ? 'active' : '' }}">
                                 <a href="#" class="nav-link" data-toggle="dropdown"
                                     role="button" aria-haspopup="true"
                                     aria-expanded="false"><span class="ti-user"></span> {{ Auth::user()->name }}</a>
@@ -127,7 +128,7 @@
                         @endguest
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a>
+                            <li class="nav-item {{Route::currentRouteName() == 'cart.index' ? 'active' : '' }}"><a href="{{route('cart.index')}}" class="cart"><span class="ti-bag"></span></a>
                             </li>
                             <li class="nav-item submenu dropdown">
                                 <a href="#" class="dropdown-toggle"><span class="ti-world"></span></a>
