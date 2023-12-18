@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
+<html lang="zxx" class="no-js" ng-app="App" ng-controller="AppController">
 
 <head>
     <!-- Mobile Specific Meta -->
@@ -279,7 +279,32 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
     <script src="{{ asset('theme/js/gmaps.min.js') }}"></script>
     <script src="{{ asset('theme/js/main.js') }}"></script>
+    {{-- Angular Js Section --}}
+    <script>
+        var app = angular.module('App', []);
 
+        app.controller('AppController', function($scope, $http) {
+            $scope.cart = {};
+
+            // Get cart data from Laravel backend
+            $http.get('/cart').then(function(response) {
+                $scope.cart = response.data.cart;
+                console.log(response.data.cart);
+            });
+
+            // Add product to cart
+            $scope.addToCart = function(productId) {
+                $http.post('cart/store', { product_id: productId }).then(function(response) {
+                    console.log(response.data);
+                    // Refresh cart data after adding a product
+                    $http.get('/cart').then(function(response) {
+                        $scope.cart = response.data.cart;
+                    });
+                    console.log('Posted');
+                });
+            };
+        });
+    </script>
 </body>
 
 </html>

@@ -15,6 +15,7 @@ class Product extends Model
         'product_title',
         'product_desc',
         'product_price',
+        'product_photos',
         'product_keywords',
         'product_cofigs',
         'status',
@@ -29,6 +30,12 @@ class Product extends Model
     public function offers()
     {
         return $this->belongsToMany(Offer::class);
+    }
+
+    public function getFeaturedImage($query)
+    {
+        dd(1);
+        return json_decode($query);
     }
 
 }

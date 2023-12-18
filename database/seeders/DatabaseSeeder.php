@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
+use App\Models\OfferProduct;
 use App\Models\Category;
 use App\Models\Offer;
 
@@ -33,8 +34,8 @@ class DatabaseSeeder extends Seeder
             'parent_id' => 0,
             'category_name' => 'PRODUCTS',
             'category_slug' => 'products',
-            'category_desc' => 'Products Category', //asdasdasd
-            'status' => 1, //asdasdasd
+            'category_desc' => 'Products Category', 
+            'status' => 1, 
         ]);
         // For Pages
         \App\Models\Category::factory()->create([
@@ -42,17 +43,35 @@ class DatabaseSeeder extends Seeder
             'parent_id' => 0,
             'category_name' => 'PAGES',
             'category_slug' => 'pages',
-            'category_desc' => 'Pages Category', //asdasdasd
-            'status' => 1, //asdasdasd
+            'category_desc' => 'Pages Category', 
+            'status' => 1, 
         ]);
         // For Offers
         \App\Models\Category::factory()->create([
             'language_id' => 0,
             'parent_id' => 0,
-            'category_name' => 'OFFERS',
-            'category_slug' => 'offers',
-            'category_desc' => 'Offers Category', //asdasdasd
-            'status' => 1, //asdasdasd
+            'category_name' => 'OFFER_TYPES',
+            'category_slug' => 'offer-types',
+            'category_desc' => 'Types  Of Offers', 
+            'status' => 1, 
+        ]);
+        // SEPERATOR ****************************************
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 0,
+            'category_name' => '=SEPERATOR=',
+            'category_slug' => 'seperator',
+            'category_desc' => 'Seperator', 
+            'status' => 1,
+        ]);
+        // Home page slider offers
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 3,
+            'category_name' => 'Slider Offers',
+            'category_slug' => 'slider-offers',
+            'category_desc' => 'Offers of Home slider', 
+            'status' => 1, 
         ]);
 
 
@@ -67,18 +86,36 @@ class DatabaseSeeder extends Seeder
         Offer::factory()->count(5)->create();
         \App\Models\Offer::factory()->create([
             'category_id' => 3,
-            'offer_title' => 'Slider Offers',
+            'offer_title' => 'Slider Offers 1',
             'offer_desc' => 'Slider Offers Category', //asdasdasd
             'status' => 1, //asdasdasd
         ]);
-        // Get all the roles attaching up to 3 random roles to each user
-        $offers = Offer::all();
+        \App\Models\Offer::factory()->create([
+            'category_id' => 3,
+            'offer_title' => 'Slider Offers 2',
+            'offer_desc' => 'Slider Offers Category', //asdasdasd
+            'status' => 1, //asdasdasd
+        ]);
+        \App\Models\Offer::factory()->create([
+            'category_id' => 3,
+            'offer_title' => 'Slider Offers 3',
+            'offer_desc' => 'Slider Offers Category', //asdasdasd
+            'status' => 1, //asdasdasd
+        ]);
 
-        // Populate the pivot table
-        Product::all()->each(function ($product) use ($offers) { 
-            $product->offers()->attach(
-                $offers->random(rand(1, 3))->pluck('id')->toArray()
-            ); 
-        });
+        
+        //    Create Product Offers For Home Slider
+        \App\Models\OfferProduct::factory()->create([
+            'product_id' => 1,
+            'offer_id' => 6, //asdasdasd
+        ]);
+        \App\Models\OfferProduct::factory()->create([
+            'product_id' => 2,
+            'offer_id' => 7, //asdasdasd
+        ]);
+        \App\Models\OfferProduct::factory()->create([
+            'product_id' => 3,
+            'offer_id' => 8, //asdasdasd
+        ]);
     }
 }

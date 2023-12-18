@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Offer;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -25,8 +26,13 @@ class HomeController extends Controller
     public function index()
     {
         // Main Slider Offer
-        $sliderOffer = Offer::where('offer_title' , '=' , 'Slider Offers')->with('products')->first();
-        // dd($sliderOffer);
-        return view('frontend.index');
+        $sliderOffer = Offer::where('category_id', 3)
+        ->has('products')
+        ->with('products')
+        ->get();
+
+        // Set The Featured Image
+        
+        return view('frontend.index' , compact('sliderOffer'));
     }
 }

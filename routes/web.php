@@ -57,6 +57,7 @@ Route::group(['prefix' => 'blogs'], function () {
 Route::group(['prefix' => 'cart'], function () {
     // Route for displaying all blogs
     Route::get('/', [ShoppingCartController::class, 'index'])->name('cart.index');
+    Route::post('store', [ShoppingCartController::class, 'store'])->name('cart.store');
 
     // Route for displaying a specific blog
     Route::get('{id}', [PageController::class, 'show'])->name('blog.show');
