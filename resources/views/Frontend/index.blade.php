@@ -1,7 +1,9 @@
 @extends('layouts.frontend.app')
 @section('content')
 	<!-- start banner Area -->
-	@{{cart}}
+	<div ng-repeat="item in cart">
+	@{{item}}
+	</div>
 	<section class="banner-area">
 		<div class="container">
 			<div class="row fullscreen align-items-center justify-content-start">
@@ -16,7 +18,7 @@
 										<h1>{{$offer->offer_title}}</h1>
 										<p>{{$offer->offer_desc}}</p>
 										<div class="add-bag d-flex align-items-center">
-											<a class="add-btn" ng-click="addToCart(1)"><span class="lnr lnr-cross"></span></a>
+											<a class="add-btn" ng-click="addToCart({{$offer->products->first()->id}})"><span class="lnr lnr-cross"></span></a>
 											<span class="add-text text-uppercase">Add to Bag</span>
 										</div>
 									</div>

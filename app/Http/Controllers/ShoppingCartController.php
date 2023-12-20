@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ShoppingCart;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class ShoppingCartController extends Controller
 {
@@ -17,8 +18,7 @@ class ShoppingCartController extends Controller
             $userId = Auth::id();
             // Retrieve user-specific cart items from the database or any other source
             $userCartItems = ShoppingCart::where('user_id', $userId)->pluck('product_id', 'quantity')->toArray();
-            dd($userCartItems);
-            return response()->json(['cart' => $userCart]);
+            return response()->json(['cart' => $userCartItems]);
         } else {
             // User is not logged in, retrieve cart items from the session
             $cart = $request->session()->get('cart', []);
@@ -29,21 +29,28 @@ class ShoppingCartController extends Controller
 
     public function store(Request $request)
     {
+        // Set Main Variables
         $productId = $request->input('product_id');
-        $quantity = $request->input('quantity', 1);
-        $product = Product::find($productId);
+        $user = Auth::user();
 
-        $cart = $request->session()->get('cart', []);
-
-        // Check if the product is already in the cart
-        if (isset($cart[$productId])) {
-            $cart[$productId] += $quantity;
-        } else {
-            $cart[$productId] = $quantity;
+        // Check if user registered or not
+        if ($user) {
+            ShoppingCart::create([
+                'user_id' => $user->id,
+                'product_id' => $productId,
+            ]);
+        }else{ // If User not logged in we storing the product into Session
+            $product = Product::find($productId);
+            $cart = $request->session()->get('cart', []);
+            // Check if the product is already in the cart
+            if (isset($product) && !isset($cart[$product->id])) {
+                $cart[$productId] = $product->id;
+            }else{
+                unset($cart[$productId]);
+            }
+            $request->session()->put('cart', $cart);
         }
-
-        $request->session()->put('cart', $cart);
-
+        $request->session()->flash('success', __('Product Added Successfully.'));
         return response()->json(['success' => true]);
     }
 }
