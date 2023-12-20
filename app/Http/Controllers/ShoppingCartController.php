@@ -21,10 +21,13 @@ class ShoppingCartController extends Controller
             return response()->json(['cart' => $userCartItems]);
         } else {
             // User is not logged in, retrieve cart items from the session
-            $cart = $request->session()->get('cart', []);
-            return response()->json(['cart' => $cart]);
+            $cart = $request->session()->get('cart');
         }
-        return view('frontend.cart');
+        // Check requset
+        if($request->expectsJson()){
+            return response()->json(['success' => true ,'data' => $cart]);
+        }
+        return view('frontend.cart' , compact('cart'));
     }
 
     public function store(Request $request)
@@ -41,16 +44,21 @@ class ShoppingCartController extends Controller
             ]);
         }else{ // If User not logged in we storing the product into Session
             $product = Product::find($productId);
-            $cart = $request->session()->get('cart', []);
+            $sessionCart = $request->session()->get('cart' , []);
             // Check if the product is already in the cart
-            if (isset($product) && !isset($cart[$product->id])) {
-                $cart[$productId] = $product->id;
+            if (isset($product) && !isset($sessionCart[$product->id])) {
+                $sessionCart[$product->id] =
+                 [
+                    'id' => $product->id,
+                    'title' => $product->product_title,
+                    'price' => $product->product_price,
+                ];
             }else{
-                unset($cart[$productId]);
+                unset($sessionCart[$product->id]);
             }
-            $request->session()->put('cart', $cart);
+            $request->session()->put('cart', $sessionCart);
         }
         $request->session()->flash('success', __('Product Added Successfully.'));
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true , 'data' => $sessionCart]);
     }
 }

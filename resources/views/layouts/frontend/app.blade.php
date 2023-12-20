@@ -43,7 +43,7 @@
             <nav class="navbar navbar-expand-lg navbar-light main_box">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand logo_h" href="index.html"><img src="{{ asset('theme/img/logo.png') }}"
+                    <a class="navbar-brand logo_h" href="{{route('home')}}"><img src="{{ asset('theme/img/logo.png') }}"
                             alt=""></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -128,7 +128,10 @@
                         @endguest
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="nav-item {{Route::currentRouteName() == 'cart.index' ? 'active' : '' }}"><a href="{{route('cart.index')}}" class="cart"><span class="ti-bag"></span></a>
+                            <li class="nav-item {{Route::currentRouteName() == 'cart.index' ? 'active' : '' }}"><a href="{{route('cart.index')}}" class="cart">
+                                <span class="ti-bag"></span>
+                                    <span class="cart-count" >@{{cartItems}}</span>
+                            </a>
                             </li>
                             <li class="nav-item submenu dropdown">
                                 <a href="#" class="dropdown-toggle"><span class="ti-world"></span></a>
@@ -169,6 +172,11 @@
             </div>
         </div>
     </header>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <!-- End Header Area -->
     <main class="py-4">
         @yield('content')
@@ -284,21 +292,23 @@
         var app = angular.module('App', []);
 
         app.controller('AppController', function($scope, $http) {
-            $scope.cart = {};
-
             // Get cart data from Laravel backend
             $http.get('/cart').then(function(response) {
-                $scope.cart = response.data.cart;
-                console.log(response.data.cart);
+                $scope.cart = response.data.data;
+                $scope.cartItems = Object.keys(response.data.data).length;
             });
-
+            $scope.isProductInCart = function(productId)
+            {
+                return 1;
+            }
             // Add product to cart
             $scope.addToCart = function(productId) {
                 $http.post('cart/store', { product_id: productId }).then(function(response) {
                     console.log(response.data);
                     // Refresh cart data after adding a product
                     $http.get('/cart').then(function(response) {
-                        $scope.cart = response.data.cart;
+                        $scope.cart = response.data.data;
+                        $scope.cartItems = Object.keys(response.data.data).length;
                     });
                     console.log('Posted');
                 });

@@ -279,7 +279,17 @@
 	content: "\e654";
 }
 .ti-bag:before {
+	position: relative;
 	content: "\e655";
+}
+.cart-count {
+    top: -8px;
+    background: linear-gradient(90deg, #d2b770 0%, #ff6c00 100%); /* Customize the background color */
+    color: #ffffff; /* Customize the text color */
+    border-radius: 50%;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
 }
 .ti-move:before {
 	content: "\e656";
