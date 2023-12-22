@@ -52,15 +52,14 @@ $(document).ready(function(){
         items:1,
         autoplay:false,
         autoplayTimeout: 5000,
-        loop:true,
         nav:true,
         navText: [
-          "<img src='{{ asset('img/product/prev.png') }}'>",
-          "<img src='{{ asset('img/product/next.png') }}'>"
+          "<img src='/theme/img/product/prev.png'>",
+          "<img src='/theme/img/product/next.png'>"
       ],
         dots:false
     });
-
+    
     /*=================================
     Javascript for product area carousel
     ==================================*/
@@ -68,11 +67,10 @@ $(document).ready(function(){
         items:1,
         autoplay:false,
         autoplayTimeout: 5000,
-        loop:true,
         nav:true,
         navText: [
-          "<img src='{{ asset('img/product/prev.png') }}'>",
-          "<img src='{{ asset('img/product/next.png') }}'>"
+          "<img src='/theme/img/product/prev.png'>",
+          "<img src='/theme/img/product/next.png'>"
       ],
         dots:false
     });

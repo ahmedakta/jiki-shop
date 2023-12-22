@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,5 +22,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $user = Auth::user();
+        $userBasket = Session::get('cart');
+        View::share('userBasket', $userBasket);
+        View::share('user', $user);
     }
 }

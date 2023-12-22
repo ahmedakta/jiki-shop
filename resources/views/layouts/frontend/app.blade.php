@@ -297,20 +297,19 @@
                 $scope.cart = response.data.data;
                 $scope.cartItems = Object.keys(response.data.data).length;
             });
-            $scope.isProductInCart = function(productId)
-            {
-                return 1;
-            }
             // Add product to cart
             $scope.addToCart = function(productId) {
                 $http.post('cart/store', { product_id: productId }).then(function(response) {
-                    console.log(response.data);
-                    // Refresh cart data after adding a product
+                    // change the button text
+                    var span = document.querySelector('.add-text-' + productId);
+                    if (span) {
+                        span.textContent  = response.data.status == 'success' ? 'Product in Cart' : 'Add to Cart';
+                    }
+                    console.log(span);
                     $http.get('/cart').then(function(response) {
                         $scope.cart = response.data.data;
                         $scope.cartItems = Object.keys(response.data.data).length;
                     });
-                    console.log('Posted');
                 });
             };
         });

@@ -11,16 +11,11 @@ class ShoppingCartController extends Controller
 {
     public function index(Request $request)
     {
-          // Check if the user is authenticated
-          if (Auth::check()) {
-            $cart = $request->session()->get('cart', []);
-            // User is logged in
+        // Check if the user is authenticated
+        if (Auth::check()) {
             $userId = Auth::id();
-            // Retrieve user-specific cart items from the database or any other source
-            $userCartItems = ShoppingCart::where('user_id', $userId)->pluck('product_id', 'quantity')->toArray();
-            return response()->json(['cart' => $userCartItems]);
+            $cart = ShoppingCart::where('user_id', $userId)->pluck('product_id', 'quantity')->toArray();
         } else {
-            // User is not logged in, retrieve cart items from the session
             $cart = $request->session()->get('cart');
         }
         // Check requset
@@ -43,6 +38,7 @@ class ShoppingCartController extends Controller
                 'product_id' => $productId,
             ]);
         }else{ // If User not logged in we storing the product into Session
+            $status = 'success';
             $product = Product::find($productId);
             $sessionCart = $request->session()->get('cart' , []);
             // Check if the product is already in the cart
@@ -54,11 +50,11 @@ class ShoppingCartController extends Controller
                     'price' => $product->product_price,
                 ];
             }else{
+                $status = 'deleted';
                 unset($sessionCart[$product->id]);
             }
             $request->session()->put('cart', $sessionCart);
         }
-        $request->session()->flash('success', __('Product Added Successfully.'));
-        return response()->json(['success' => true , 'data' => $sessionCart]);
+        return response()->json(['status' => $status , 'data' => $sessionCart]);
     }
 }
