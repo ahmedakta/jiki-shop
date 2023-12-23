@@ -303,7 +303,7 @@
                     // change the button text
                     var span = document.querySelector('.add-text-' + productId);
                     if (span) {
-                        span.textContent  = response.data.status == 'success' ? 'Product in Cart' : 'Add to Cart';
+                        span.textContent = response.data.status == 'success' ? 'Product in Cart' : 'Add to Cart';
                     }
                     console.log(span);
                     $http.get('/cart').then(function(response) {

@@ -46,8 +46,9 @@ class ShoppingCartController extends Controller
                 $sessionCart[$product->id] =
                  [
                     'id' => $product->id,
-                    'title' => $product->product_title,
-                    'price' => $product->product_price,
+                    'product_title' => $product->product_title,
+                    'product_price' => $product->product_price,
+                    'product_photos' => $product->product_photos,
                 ];
             }else{
                 $status = 'deleted';
