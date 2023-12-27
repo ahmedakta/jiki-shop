@@ -20,7 +20,7 @@ class Product extends Model
         'product_cofigs',
         'status',
     ];
-
+   
     // set category relationshp
     public function category()
     {
@@ -36,6 +36,11 @@ class Product extends Model
     {
         dd(1);
         return json_decode($query);
+    }
+
+    public function shoppingCart()
+    {
+        return $this->belongsTo(shoppingCart::class , 'shopping_carts' , 'product_id' , 'user_id');
     }
 
 }

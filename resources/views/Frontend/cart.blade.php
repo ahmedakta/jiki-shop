@@ -14,58 +14,53 @@
             </div>
         </div>
     </section>
-
     <!-- End Banner Area -->
     <!--================ Cart Area =================-->
     <section class="cart_area">
         <div class="container">
             <div class="cart_inner">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" ng-if="cart.length != 0">
                         <thead>
                             <tr>
-                                <th scope="col">Product</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Total</th>
+                                <th scope="col">{{__('Product')}}</th>
+                                <th scope="col">{{__('Price')}}</th>
+                                <th scope="col">{{__('Quantity')}}</th>
+                                <th scope="col">{{__('Total')}}</th>
+                                <th scope="col">{{__('Action')}}</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($cart as $key => $item)
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            @foreach (json_decode($item['product_photos']) as $photo)
-                                                @if($photo->isfeatured)
-                                                    <img width="100rem" src="{{asset($photo->name)}}" alt="">
-                                                @endif
-                                            @endforeach
+                                <tr ng-repeat="item in cart">
+                                    <td>
+                                        <div class="media">
+                                            <div class="d-flex" ng-repeat="photo in item.product_photos">
+                                                    {{-- get the featured image of product --}}
+                                                    <img width="100rem" ng-if="photo.isfeatured == 1" src="@{{photo.name}}" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <p>@{{item.product_title}}</p>
+                                            </div>
                                         </div>
-                                        <div class="media-body">
-                                            <p>{{$item['product_title']}}</p>
+                                    </td>
+                                    <td>
+                                        <h5>@{{item.product_price}}</h5>
+                                    </td>
+                                    <td>
+                                        <div class="product_count">
+                                            <input type="text" name="qty" maxlength="12" value="@auth @{{item.pivot.quantity}} @else @{{item.product_quantity}} @endauth" title="Quantity:"
+                                                class="input-text qty">
+                                            <button ng-click="quantityAction(item.id , 1)" class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+                                            <button ng-click="quantityAction(item.id , 0)" class="reduced items-count" type="button" ng-disabled="item.product_quantity < 1"><i class="lnr lnr-chevron-down"></i></button>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>{{$item['product_price']}}</h5>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                            class="input-text qty">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>$720.00</h5>
-                                </td>
-                            </tr>
-                        @endforeach
-                      
+                                    </td>
+                                    <td>
+                                        <h5>@{{item.total}}</h5>
+                                    </td>
+                                    <td>
+                                        <h5><a class="genric-btn danger circle" ng-click="addToCart(item.id)"><span class="ti-trash"></span></a></h5>
+                                    </td>
+                                </tr>
                             <tr class="bottom_button">
                                 <td>
                                     <a class="gray_btn" href="#">Update Cart</a>
@@ -151,6 +146,10 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div ng-if="cart.length == 0" class="container empty-cart-conatiner">
+                        <img src="{{asset('/theme/img/product/empty_cart.png')}}" alt="">
+                        <p>{{__('Your Cart Is Empty')}}</p>
+                    </div>
                 </div>
             </div>
         </div>

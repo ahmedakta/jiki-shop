@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {
@@ -64,10 +65,23 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        // We checking the cart session first , if there is ant products , 
+        // we recording it into ShoppingCart of the user
+        $cartItems = Session::get('cart');
+        // Firstly create the user
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        // check if tehre is items in session to store it
+        if(isset($cartItems) && count($cartItems))
+        {
+            foreach ($cartItems as $key => $item) {
+                $user->cartProducts()->attach($key, ['quantity' => $item['product_quantity']]);
+            }
+        }
+        
+        return $user;
     }
 }

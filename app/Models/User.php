@@ -50,8 +50,13 @@ class User extends Authenticatable
     }
 
     // User Shopping Cart relation
+    public function cartProducts()
+    {
+        return $this->belongsToMany(Product::class , 'shopping_carts' , 'user_id' , 'product_id')->withPivot('quantity'); // we are getting the added to cart products with their quantity
+    }
+
     public function shoppingCart()
     {
-        return $this->hasMany(ShoppingCart::class);
+        return $this->hasOne(ShoppingCart::class ,  'user_id'); // we are getting the added to cart products with their quantity
     }
 }

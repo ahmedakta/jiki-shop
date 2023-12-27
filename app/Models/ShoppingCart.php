@@ -13,4 +13,14 @@ class ShoppingCart extends Model
         'product_id',
         'quantity',
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class , 'product_id');
+    }
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

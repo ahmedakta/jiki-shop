@@ -5792,6 +5792,30 @@ label {
 
 
 /* FROM HERE I STARTED TO ADD CSS */
+/* Empty cart */
+.empty-cart-conatiner{
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Stack items vertically */
+  display: flex;
+}
+@media only screen and (max-width: 600px) {
+  .empty-cart-conatiner img{
+    margin-right: 1rem;
+
+  }
+}
+.empty-cart-conatiner img{
+  width:15rem;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+.empty-cart-conatiner p{
+  font: bold;
+  font-size: 1.5em;
+}
+/* End Of Empty Cart */
 
 /* Profile Settings Section */
 .profile_sections{

@@ -312,6 +312,15 @@
                     });
                 });
             };
+            // Product Quantity Action
+            $scope.quantityAction = function(productId , quantityAction){
+                $http.post('cart/product/quantity' , {product_id : productId , quantity_action : quantityAction}).then(function(response){
+                    $http.get('/cart').then(function(response) {
+                        $scope.cart = response.data.data;
+                        $scope.cartItems = Object.keys(response.data.data).length;
+                    });
+                });
+            };
         });
     </script>
 </body>
