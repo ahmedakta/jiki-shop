@@ -26,18 +26,14 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class , 'category_id');
     }
+    
     // Set offers relation
     public function offers()
     {
         return $this->belongsToMany(Offer::class);
     }
 
-    public function getFeaturedImage($query)
-    {
-        dd(1);
-        return json_decode($query);
-    }
-
+    // set shopping cart relation
     public function shoppingCart()
     {
         return $this->belongsTo(shoppingCart::class , 'shopping_carts' , 'product_id' , 'user_id');

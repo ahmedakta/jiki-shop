@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShoppingCartController;
 
 /*
@@ -52,8 +53,13 @@ Route::group(['prefix' => 'blogs'], function () {
     // Add more blog-related routes here
 });
 
+// ********** Group For Products ****************
+Route::group(['prefix' => 'products'], function () {
+    Route::get('/', [ProductController::class, 'index'])->name('products.index');
+});
+Route::get('/contact' , [PageController::class ,'contact'])->name('pages.contact');
 
-// Group for basket-related routes with 'cart' prefix
+// ********** Group for basket-related routes with 'cart' prefix *************
 Route::group(['prefix' => 'cart'], function () {
     // Route for displaying all blogs
     Route::get('/', [ShoppingCartController::class, 'index'])->name('cart.index');

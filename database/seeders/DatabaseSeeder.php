@@ -75,7 +75,7 @@ class DatabaseSeeder extends Seeder
         // Home page slider offers
         \App\Models\Category::factory()->create([
             'language_id' => 0,
-            'parent_id' => 3,
+            'parent_id' => 4,
             'category_name' => 'Slider Offers',
             'category_slug' => 'slider-offers',
             'category_desc' => 'Offers of Home slider', 
@@ -89,6 +89,7 @@ class DatabaseSeeder extends Seeder
             'category_name' => 'Free Delivery',
             'category_slug' => 'free-delivery',
             'category_desc' => 'Free Shipping on all order', 
+            'category_configs' => '[{"icon":"f-icon1.png"}]', 
             'status' => 1, 
         ]);
         \App\Models\Category::factory()->create([
@@ -97,6 +98,7 @@ class DatabaseSeeder extends Seeder
             'category_name' => 'Return Policy',
             'category_slug' => 'return-policy',
             'category_desc' => 'Free Shipping on all order', 
+            'category_configs' => '[{"icon":"f-icon2.png"}]', 
             'status' => 1, 
         ]);
         \App\Models\Category::factory()->create([
@@ -104,7 +106,8 @@ class DatabaseSeeder extends Seeder
             'parent_id' => 3,
             'category_name' => 'Secure Payment',
             'category_slug' => 'secure-payment',
-            'category_desc' => 'Free Shipping on all order', 
+            'category_desc' => 'Free Shipping on all order',
+            'category_configs' => '[{"icon":"f-icon3.png"}]', 
             'status' => 1, 
         ]);
         \App\Models\Category::factory()->create([
@@ -112,7 +115,8 @@ class DatabaseSeeder extends Seeder
             'parent_id' => 3,
             'category_name' => 'Free Delivery',
             'category_slug' => 'free-delivery',
-            'category_desc' => 'Free Shipping on all order', 
+            'category_desc' => 'Free Shipping on all order',
+            'category_configs' => '[{"icon":"f-icon4.png"}]',  
             'status' => 1, 
         ]);
 
@@ -126,36 +130,31 @@ class DatabaseSeeder extends Seeder
         Offer::factory()->count(5)->create();
         \App\Models\Offer::factory()->create([
             'category_id' => 3,
-            'offer_title' => 'Slider Offers 1',
+            'offer_title' => 'Awesome Shoes',
             'offer_desc' => 'Slider Offers Category', //asdasdasd
             'status' => 1, //asdasdasd
         ]);
         \App\Models\Offer::factory()->create([
             'category_id' => 3,
-            'offer_title' => 'Slider Offers 2',
+            'offer_title' => 'Sport Shoe',
             'offer_desc' => 'Slider Offers Category', //asdasdasd
             'status' => 1, //asdasdasd
         ]);
         \App\Models\Offer::factory()->create([
             'category_id' => 3,
-            'offer_title' => 'Slider Offers 3',
+            'offer_title' => 'Run Far Away!',
             'offer_desc' => 'Slider Offers Category', //asdasdasd
             'status' => 1, //asdasdasd
         ]);
+        // Offers For Test
+        $offer_one = Offer::find(6);
+        $offer_two = Offer::find(7);
+        $offer_three  = Offer::find(8);
+        // Create Product Offers For Home Slider
+        // Attach Products 
+        $offer_one->products()->attach(1);
+        $offer_two->products()->attach(2);
+        $offer_three->products()->attach(3);
 
-        
-        //    Create Product Offers For Home Slider
-        \App\Models\OfferProduct::factory()->create([
-            'product_id' => 1,
-            'offer_id' => 6, //asdasdasd
-        ]);
-        \App\Models\OfferProduct::factory()->create([
-            'product_id' => 2,
-            'offer_id' => 7, //asdasdasd
-        ]);
-        \App\Models\OfferProduct::factory()->create([
-            'product_id' => 3,
-            'offer_id' => 8, //asdasdasd
-        ]);
     }
 }

@@ -89,7 +89,7 @@
                                     <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                            <li class="nav-item  {{Route::currentRouteName() == 'pages.contact' ? 'active' : '' }}"><a class="nav-link" href="{{route('pages.contact')}}">{{__('Contact')}}</a></li>
                             @guest
                             @if (Route::has('login'))
                                 <li class="nav-item {{Route::currentRouteName() == 'login' ? 'active' : '' }}">

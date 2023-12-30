@@ -13,4 +13,9 @@ class OfferProduct extends Model
         'product_id',
         'offer_id',
     ];
+    
+    public function products()
+    {
+        return $this->hasMany(Product::class , 'id' , 'product_id');
+    }
 }

@@ -25,6 +25,7 @@ class ProductFactory extends Factory
             'product_keywords' => $this->faker->word,
             'product_configs' => "[{'test':'hi'}]",
             'product_price' => $this->faker->randomFloat(2, 10, 1000),
+            'product_photos' => $this->faker->randomFloat(2, 10, 1000),
             'status' => 1,
         ];
     }

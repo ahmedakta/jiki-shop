@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Offer;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +42,7 @@ class HomeController extends Controller
         }else{
             $cart = Session::get('cart');
         }
-        return view('frontend.index' , compact('sliderOffer' , 'cart' ));
+        $features = convertJson(Category::where('parent_id' , '=' , 3)->get()->all());
+        return view('frontend.index' , compact('sliderOffer' , 'cart' , 'features'));
     }
 }
