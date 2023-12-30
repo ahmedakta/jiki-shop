@@ -16,7 +16,13 @@ class ShoppingCartController extends Controller
         if (Auth::check()) {
             $userId = Auth::id();
             $user = User::find($userId);
-            $cart = $user->cartProducts;
+            $userCart = $user->cartProducts;
+            $cart = [];
+            foreach ($userCart as $key => $cartItem) {
+                $cart[$cartItem->id] = $cartItem;
+                $cart[$cartItem->id]['product_quantity'] = $cartItem->pivot->quantity;
+                $cart[$cartItem->id]['total'] = ($cartItem->pivot->quantity) * ($cartItem->product_price);
+            }
         } else {
             $cart = $request->session()->get('cart');
         }
@@ -37,18 +43,24 @@ class ShoppingCartController extends Controller
 
         // Check if user registered or not
         if ($user) {
-            ShoppingCart::create([
-                'user_id' => $user->id,
-                'product_id' => $productId,
-            ]);
+            // we should check first if product added before or not.
+                // dd($user->cartProducts->where('id' , '=' , $productId));
+            if($user->cartProducts->where('id' , '=' , $productId)->first()){
+                // delete product from basket
+                $user->cartProducts()->detach($productId);
+                $status = 'deleted';
+            }else{
+                $user->cartProducts()->attach($productId, ['quantity' => $quantity]);
+                $status = 'success';
+            }
+            $cart = $user->cartProducts;
         }else{ // If User not logged in we storing the product into Session
-            $status = 'success';
             $product = Product::find($productId);
-            $sessionCart = $request->session()->get('cart' , []);
+            $cart = $request->session()->get('cart' , []);
             // Check if the product is already in the cart
-            if (isset($product) && !isset($sessionCart[$product->id])) {
-                $sessionCart[$product->id] =
-                 [
+            if (isset($product) && !isset($cart[$product->id])) {
+                $cart[$product->id] =
+                [
                     'id' => $product->id,
                     'product_title' => $product->product_title,
                     'product_price' => $product->product_price,
@@ -56,13 +68,14 @@ class ShoppingCartController extends Controller
                     'product_quantity' => $quantity,
                     'total' => ($quantity * $product->product_price),
                 ];
+                $status = 'success';
             }else{
                 $status = 'deleted';
-                unset($sessionCart[$product->id]);
+                unset($cart[$product->id]);
             }
-            $request->session()->put('cart', $sessionCart);
+            $request->session()->put('cart', $cart);
         }
-        return response()->json(['status' => $status , 'data' => $sessionCart]);
+        return response()->json(['status' => $status , 'data' => $cart]);
     }
     public function update(Request $request)
     {
@@ -72,36 +85,33 @@ class ShoppingCartController extends Controller
         $user = Auth::user();
 
         if ($user) {
-
-            $product = ShoppingCart::where([
-                'product_id'=> $productId , 
-                'user_id' => $user->id
-            ])->first();
+            $product = $user->cartProducts->where('id' , '=' , $productId)->first();
             if (!$product) {
                 return abort(404); // or redirect or handle accordingly
             }
-            $newQuantity = $quantityAction ? $product->quantity + 1 : $product->quantity - 1;
-            $user->cartProducts()->updateExistingPivot($productId, ['quantity' => $newQuantity]);
-            $status = 'success';
-            dd($user->cartProducts);
-            $sessionCart = $user->cartProducts;
-            // Check if the product exists
+            $newQuantity = $quantityAction ? $product->pivot->quantity + 1 : $product->pivot->quantity - 1;
+            if($newQuantity >= 1)
+            {
+                $user->cartProducts()->updateExistingPivot($productId, ['quantity' => $newQuantity]);
+                $status = 'success';
+            }
+            $cart = $user->cartProducts;
 
         }else{ // If User not logged in we storing the product into Session
             $status = 'success';
             $product = Product::find($productId);
-            $sessionCart = $request->session()->get('cart' , []);
+            $cart = $request->session()->get('cart' , []);
             // Check if the product is already in the cart
-            if (isset($product) && isset($sessionCart[$product->id])) {
-                $currentQuantity = $sessionCart[$product->id]['product_quantity'];
+            if (isset($product) && isset($cart[$product->id])) {
+                $currentQuantity = $cart[$product->id]['product_quantity'];
                 $productCartQuantity =  $quantityAction ? ($currentQuantity + 1) : ($currentQuantity - 1);
-                $productCartPrice = $sessionCart[$product->id]['product_price'];
+                $productCartPrice = $cart[$product->id]['product_price'];
                 // Quantity conditios
                 if($productCartQuantity < 1)
                 {
-                    return response()->json(['status' => $status , 'data' => $sessionCart]);
+                    return response()->json(['status' => $status , 'data' => $cart]);
                 }
-                $sessionCart[$product->id] =
+                $cart[$product->id] =
                  [
                     'id' => $product->id,
                     'product_title' => $product->product_title,
@@ -111,8 +121,8 @@ class ShoppingCartController extends Controller
                     'total' => $productCartQuantity * $productCartPrice,
                 ];
             }
-            $request->session()->put('cart', $sessionCart);
+            $request->session()->put('cart', $cart);
         }
-        return response()->json(['status' => $status , 'data' => $sessionCart]);
+        return response()->json(['status' => $status , 'data' => $cart]);
     }
 }

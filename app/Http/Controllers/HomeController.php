@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Offer;
 use App\Models\Product;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -30,9 +32,15 @@ class HomeController extends Controller
         ->has('products')
         ->with('products')
         ->get();
-
         // Set The Featured Image
-        
-        return view('frontend.index' , compact('sliderOffer'));
+        $cart = [];
+        // check if user logged in
+        if(Auth::check())
+        {
+            $cart = Auth::user()->cartProducts;
+        }else{
+            $cart = Session::get('cart');
+        }
+        return view('frontend.index' , compact('sliderOffer' , 'cart' ));
     }
 }

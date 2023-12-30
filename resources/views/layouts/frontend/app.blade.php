@@ -308,6 +308,7 @@
                     console.log(span);
                     $http.get('/cart').then(function(response) {
                         $scope.cart = response.data.data;
+                        console.log($scope.cart);
                         $scope.cartItems = Object.keys(response.data.data).length;
                     });
                 });

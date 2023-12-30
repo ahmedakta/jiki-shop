@@ -16,7 +16,7 @@
 										<p>{{$offer->offer_desc}}</p>
 										<div class="add-bag d-flex align-items-center">
 											<a class="add-btn" ng-click="addToCart({{$offer->products->first()->id}})"><span class="lnr lnr-cross"></span></a>
-											<span class="add-text-{{$offer->products->first()->id}} text-uppercase">{{ isset(Session::get('cart')[$offer->products->first()->id]) ? __('remove_from_cart') : __('add_to_cart')}}</span>
+											<span class="add-text-{{$offer->products->first()->id}} text-uppercase">{{ isset($cart[$offer->products->first()->id]) ? __('remove_from_cart') : __('add_to_cart')}}</span>
 										</div>
 									</div>
 								</div>
