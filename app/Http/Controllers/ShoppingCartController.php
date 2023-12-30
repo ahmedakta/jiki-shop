@@ -90,10 +90,10 @@ class ShoppingCartController extends Controller
                 return abort(404); // or redirect or handle accordingly
             }
             $newQuantity = $quantityAction ? $product->pivot->quantity + 1 : $product->pivot->quantity - 1;
+            $status = 'success';
             if($newQuantity >= 1)
             {
                 $user->cartProducts()->updateExistingPivot($productId, ['quantity' => $newQuantity]);
-                $status = 'success';
             }
             $cart = $user->cartProducts;
 

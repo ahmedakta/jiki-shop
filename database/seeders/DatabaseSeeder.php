@@ -46,6 +46,14 @@ class DatabaseSeeder extends Seeder
             'category_desc' => 'Pages Category', 
             'status' => 1, 
         ]);
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 0,
+            'category_name' => 'FEATURES',
+            'category_slug' => 'features',
+            'category_desc' => 'Website Features', 
+            'status' => 1, 
+        ]);
         // For Offers
         \App\Models\Category::factory()->create([
             'language_id' => 0,
@@ -74,7 +82,39 @@ class DatabaseSeeder extends Seeder
             'status' => 1, 
         ]);
 
-
+        // the feautres
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 3,
+            'category_name' => 'Free Delivery',
+            'category_slug' => 'free-delivery',
+            'category_desc' => 'Free Shipping on all order', 
+            'status' => 1, 
+        ]);
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 3,
+            'category_name' => 'Return Policy',
+            'category_slug' => 'return-policy',
+            'category_desc' => 'Free Shipping on all order', 
+            'status' => 1, 
+        ]);
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 3,
+            'category_name' => 'Secure Payment',
+            'category_slug' => 'secure-payment',
+            'category_desc' => 'Free Shipping on all order', 
+            'status' => 1, 
+        ]);
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 3,
+            'category_name' => 'Free Delivery',
+            'category_slug' => 'free-delivery',
+            'category_desc' => 'Free Shipping on all order', 
+            'status' => 1, 
+        ]);
 
         // Some Categories
         Category::factory()->count(5)->create();

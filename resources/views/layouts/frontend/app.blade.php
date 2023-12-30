@@ -322,6 +322,14 @@
                     });
                 });
             };
+            // Get subtotal of the user cart products
+            $scope.calculateTotal = function() {
+                var total = 0;
+                angular.forEach($scope.cart, function(product) {
+                    total += parseInt(product.total, 10);
+                });
+               return total;
+            };
         });
     </script>
 </body>

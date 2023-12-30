@@ -75,7 +75,7 @@
                                     <div class="cupon_text d-flex align-items-center">
                                         <input type="text" placeholder="Coupon Code">
                                         <a class="primary-btn" href="#">Apply</a>
-                                        <a class="gray_btn" href="#">Close Coupon</a>
+                                        <a class="gray_btn" href="#">Close</a>
                                     </div>
                                 </td>
                             </tr>
@@ -90,7 +90,7 @@
                                     <h5>Subtotal</h5>
                                 </td>
                                 <td>
-                                    <h5>$2160.00</h5>
+                                    <h5>@{{calculateTotal()}}</h5>
                                 </td>
                             </tr>
                             <tr class="shipping_area">
@@ -139,7 +139,7 @@
                                 </td>
                                 <td>
                                     <div class="checkout_btn_inner d-flex align-items-center">
-                                        <a class="gray_btn" href="#">Continue Shopping</a>
+                                        <a class="gray_btn" href="#">Continue</a>
                                         <a class="primary-btn" href="#">Proceed to checkout</a>
                                     </div>
                                 </td>
