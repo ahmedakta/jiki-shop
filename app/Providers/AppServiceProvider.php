@@ -32,8 +32,6 @@ class AppServiceProvider extends ServiceProvider
 
         // *** User Basket Information
         $user = Auth::user();
-        $userBasket = Session::get('cart');
-        View::share('userBasket', $userBasket);
         View::share('user', $user);
     }
 }

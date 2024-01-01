@@ -271,10 +271,23 @@
 
         app.controller('AppController', function($scope, $http) {
             // Get cart data from Laravel backend
+            // Use embedded JSON data
+            var jsonData = {!! $jsonData !!};
+            $scope.products = jsonData;
             $http.get('/cart').then(function(response) {
                 $scope.cart = response.data.data;
                 $scope.cartItems = Object.keys(response.data.data).length;
             });
+            // 
+            $scope.getData = function (url , params) {
+                var url = '/products'; // Replace with your API endpoint
+                var params = { page: $scope.currentPage, itemsPerPage: $scope.itemsPerPage };
+
+                $http.get(url, { params: params })
+                    .then(function (response) {
+                        $scope.products = response.data.data;
+                    });
+            };
             // Add product to cart
             $scope.addToCart = function(productId) {
                 $http.post('cart/store', { product_id: productId }).then(function(response) {
@@ -283,10 +296,8 @@
                     if (span) {
                         span.textContent = response.data.status == 'success' ? 'Product in Cart' : 'Add to Cart';
                     }
-                    console.log(span);
                     $http.get('/cart').then(function(response) {
                         $scope.cart = response.data.data;
-                        console.log($scope.cart);
                         $scope.cartItems = Object.keys(response.data.data).length;
                     });
                 });
@@ -308,6 +319,37 @@
                 });
                return total;
             };
+            $scope.getData = function(event){
+                console.log('hi');
+            };
+            $scope.callGetData = function() {
+                $scope.getData();
+            };
+        });
+        app.directive('postsPagination', function(){  
+        return{
+            restrict: 'E', 
+            template: '<div class="filter-bar d-flex flex-wrap align-items-center">'+
+					'<div class="sorting mr-auto">'+
+						'<select>'+
+							'<option value="1">Show 12</option>'+
+							'<option value="1">Show 12</option>'+
+							'<option value="1">Show 12</option>'+
+						'</select>'+
+					'</div>'+
+					'<div class="pagination">'+
+						// '<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>'+
+						'<a  ng-repeat="page in links" ng-click="callGetData()" ng-class="{active: page.active}">@{{page.label}}</a>'+
+						// '<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>'+
+					'</div>'+
+				'</div>',
+                // '<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>'+
+            scope: {
+                currentPage: '=',
+                links: '=',
+                getData: '&'
+            },
+        };
         });
     </script>
 </body>

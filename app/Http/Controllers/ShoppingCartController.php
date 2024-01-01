@@ -31,7 +31,7 @@ class ShoppingCartController extends Controller
         if($request->expectsJson()){
             return response()->json(['success' => true ,'data' => $cart]);
         }
-        return view('frontend.cart' , compact('cart'));
+        return view('frontend.cart');
     }
 
     public function store(Request $request)
