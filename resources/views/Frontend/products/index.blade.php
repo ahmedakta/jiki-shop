@@ -198,14 +198,16 @@
                                 <div class="single-product">
                                     <img class="img-fluid" src="{{asset('theme/img/product/p1.jpg')}}" alt="">
                                     <div class="product-details">
-                                        <h6>@{{product.product_title}}</h6>
+										<a ng-href="/products/@{{product.id}}">
+											<h6>@{{product.product_title}}</h6>
+										</a>
                                         <div class="price">
                                             <h6>$@{{product.product_price}}</h6>
                                             <h6 class="l-through">$210.00</h6>
                                         </div>
                                         <div class="prd-bottom">
                                             <a href="" ng-click="addToCart(product.id)" class="social-info">
-                                                <span class="ti-bag"></span>
+                                                <span class="ti-bag" ng-style="{'background' : isProductInCart(product.id) ? 'linear-gradient(90deg, #d2b770 0%, #ff6c00 100%)' : '' }"></span>
                                                 <p class="hover-text">add to bag</p>
                                             </a>
                                             <a href="" class="social-info">

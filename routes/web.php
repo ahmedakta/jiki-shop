@@ -56,6 +56,7 @@ Route::group(['prefix' => 'blogs'], function () {
 // ********** Group For Products ****************
 Route::group(['prefix' => 'products'], function () {
     Route::get('/', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/{id}', [ProductController::class, 'show'])->name('products.show');
 });
 Route::get('/contact' , [PageController::class ,'contact'])->name('pages.contact');
 

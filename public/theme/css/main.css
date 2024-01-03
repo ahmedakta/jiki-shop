@@ -5830,4 +5830,10 @@ label {
 }
 /* END OF SECTION */
 
+
+/* product bag */
+.in-cart{
+  background: linear-gradient(90deg, #d2b770 0%, #ff6c00 100%);
+  color:red;
+}
 /*# sourceMappingURL=main.css.map */

@@ -300,6 +300,7 @@
                     $http.get('/cart').then(function(response) {
                         $scope.cart = response.data.data;
                         $scope.cartItems = Object.keys(response.data.data).length;
+                        console.log($scope.cart);
                     });
                 });
             };
@@ -312,6 +313,7 @@
                     });
                 });
             };
+
             // Get subtotal of the user cart products
             $scope.calculateTotal = function() {
                 var total = 0;
@@ -319,6 +321,10 @@
                     total += parseInt(product.total, 10);
                 });
                return total;
+            };
+             // Function to check if a product is in the cart
+            $scope.isProductInCart = function(productId) {
+                return $scope.cart && $scope.cart[productId];
             };
 
         });
