@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zxx" class="no-js" ng-app="App" ng-controller="AppController">
-
+<script>
+            var jsonData = null;
+</script>
 <head>
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -272,7 +274,6 @@
         app.controller('AppController', function($scope, $http) {
             // Get cart data from Laravel backend
             // Use embedded JSON data
-            var jsonData = {!! $jsonData !!};
             $scope.products = jsonData;
             $http.get('/cart').then(function(response) {
                 $scope.cart = response.data.data;
@@ -319,14 +320,9 @@
                 });
                return total;
             };
-            $scope.getData = function(event){
-                console.log('hi');
-            };
-            $scope.callGetData = function() {
-                $scope.getData();
-            };
+
         });
-        app.directive('postsPagination', function(){  
+        app.directive('postsPagination', function($http){  
         return{
             restrict: 'E', 
             template: '<div class="filter-bar d-flex flex-wrap align-items-center">'+
@@ -339,16 +335,26 @@
 					'</div>'+
 					'<div class="pagination">'+
 						// '<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>'+
-						'<a  ng-repeat="page in links" ng-click="callGetData()" ng-class="{active: page.active}">@{{page.label}}</a>'+
+						'<a ng-repeat="page in links" ng-click="getData(page.url)" ng-class="{active: page.active}">@{{page.label}}</a>'+
 						// '<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>'+
 					'</div>'+
 				'</div>',
-                // '<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>'+
-            scope: {
+                scope: {
                 currentPage: '=',
                 links: '=',
-                getData: '&'
-            },
+                getData: '&',
+                products:'=',
+                },
+                // '<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>'+
+                link: function (scope, element, attrs) {
+                    scope.getData = function (url) {
+                        $http.get(url)
+                            .then(function (response) {
+                                scope.products = response.data.data;
+                        });
+                    };
+                },
+
         };
         });
     </script>

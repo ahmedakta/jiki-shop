@@ -204,8 +204,7 @@
                                             <h6 class="l-through">$210.00</h6>
                                         </div>
                                         <div class="prd-bottom">
-
-                                            <a href="" class="social-info">
+                                            <a href="" ng-click="addToCart(product.id)" class="social-info">
                                                 <span class="ti-bag"></span>
                                                 <p class="hover-text">add to bag</p>
                                             </a>
@@ -233,7 +232,9 @@
 				current-page="products.current_page" 
 				total-pages="products.last_page" 
 				items-per-page="products.per_page"
-				links="products.links">
+				links="products.links"
+				products="products"
+				>
 				</posts-pagination>
 				<!-- End Filter Bar -->
 			</div>
