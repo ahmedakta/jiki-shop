@@ -17,11 +17,13 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->default(0);
             $table->integer('currency_id')->default(1);
             $table->string('product_title');
+            $table->string('product_introduction')->nullable();
             $table->longText('product_desc');
             $table->integer('product_price');
             $table->string('product_photos')->nullable()->default('[{"name":"theme/img/banner/banner-product.png","isfeatured":"1"},{"name":"theme/img/banner/banner-img.png","isfeatured":"0"}]');
             $table->string('product_keywords')->nullable();
             $table->string('product_configs')->nullable();
+            $table->integer('product_stocks')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
 
