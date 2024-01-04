@@ -281,10 +281,8 @@
             });
             // 
             $scope.getData = function (url , params) {
-                var url = '/products'; // Replace with your API endpoint
-                var params = { page: $scope.currentPage, itemsPerPage: $scope.itemsPerPage };
-
                 $http.get(url, { params: params })
+                    //  TODO make var name $data 
                     .then(function (response) {
                         $scope.products = response.data.data;
                     });

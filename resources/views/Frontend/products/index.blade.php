@@ -207,7 +207,11 @@
                                         </div>
                                         <div class="prd-bottom">
                                             <a href="" ng-click="addToCart(product.id)" class="social-info">
-                                                <span class="ti-bag" ng-style="{'background' : isProductInCart(product.id) ? 'linear-gradient(90deg, #d2b770 0%, #ff6c00 100%)' : '' }"></span>
+                                                <span class="ti-bag" ng-style="{
+													'transition' : isProductInCart(product.id) ? 'all 1s ease-out' : '',
+													'background' : isProductInCart(product.id) ? 'linear-gradient(90deg, #d2b770 0%, #ff6c00 100%)' : '',
+													}">
+												</span>
                                                 <p class="hover-text">@{{isProductInCart(product.id) ? 'Remove' : 'Add to bag'}}</p>
                                             </a>
                                             <a href="" class="social-info">

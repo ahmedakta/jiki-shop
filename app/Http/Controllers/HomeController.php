@@ -28,21 +28,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Main Slider Offer
+        // *** Main Slider Offer *** //
         $sliderOffer = Offer::where('category_id', 3)
         ->has('products')
         ->with('products')
         ->get();
-        // Set The Featured Image
+
+        // *** User Cart (Session || Database)*** //
         $cart = [];
-        // check if user logged in
-        if(Auth::check())
-        {
-            $cart = Auth::user()->cartProducts;
-        }else{
-            $cart = Session::get('cart');
-        }
+        $cart = Auth::check() ? Auth::user()->cartProducts : Session::get('cart');
+
+        // *** Features Section *** //
         $features = convertJson(Category::where('parent_id' , '=' , 3)->get()->all());
-        return view('frontend.index' , compact('sliderOffer' , 'cart' , 'features'));
+
+        // *** Categories Section *** //
+        $categories = convertJson(Category::where('parent_id' , '=' , 1)->select('category_name' , 'category_configs')->get());
+
+        // *** One Hot Offer *** //
+
+        // *** Latest Added Active Products *** //
+        
+        return view('frontend.index' , compact('sliderOffer' , 'cart' , 'features', 'categories'));
     }
 }

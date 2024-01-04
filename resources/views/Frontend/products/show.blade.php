@@ -71,7 +71,7 @@
 					 aria-selected="false">Specification</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+					<a class="nav-link" ng-click="getData('product/comments' , {{$product->id}})" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
 					 aria-selected="false">Comments</a>
 				</li>
 				<li class="nav-item">
@@ -173,22 +173,24 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="comment_list">
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-1.png" alt="">
+								@foreach ($product->comments as $comment)		
+									<div class="review_item">
+										<div class="media">
+											<div class="d-flex">
+												<img src="img/product/review-1.png" alt="">
+											</div>
+											<div class="media-body">
+												<h4>{{$comment->user->name}}</h4>
+												<h5>12th Feb, 2018 at 05:56 pm</h5>
+												<a class="reply_btn" href="#">Reply</a>
+											</div>
 										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+											dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+											commodo</p>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item reply">
+								@endforeach
+								{{-- <div class="review_item reply">
 									<div class="media">
 										<div class="d-flex">
 											<img src="img/product/review-2.png" alt="">
@@ -202,22 +204,7 @@
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
 										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
 										commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-3.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
+								</div> --}}
 							</div>
 						</div>
 						<div class="col-lg-6">

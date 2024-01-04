@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
 use App\Models\OfferProduct;
+use App\Models\Comment;
 use App\Models\Category;
 use App\Models\Offer;
 
@@ -120,11 +121,50 @@ class DatabaseSeeder extends Seeder
             'status' => 1, 
         ]);
 
+
+        // Category For Products.
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 1,
+            'category_name' => 'SNEAKER FOR SPORTS',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c1.jpg"}]',  
+            'status' => 1, 
+        ]);
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 1,
+            'category_name' => 'SNEAKER FOR SPORTS',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c2.jpg"}]',  
+            'status' => 1, 
+        ]);
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 1,
+            'category_name' => 'PRODUCT FOR COUPLE',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c3.jpg"}]',  
+            'status' => 1, 
+        ]);
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 1,
+            'category_name' => 'SNEAKER FOR SPORTS',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c4.jpg"}]',  
+            'status' => 1, 
+        ]);
+
         // Some Categories
         Category::factory()->count(5)->create();
 
         // Some Products
-        Product::factory()->count(50)->create();
+        $products = Product::factory()->count(50)->create();
 
         // Some Offers
         Offer::factory()->count(5)->create();
@@ -155,6 +195,16 @@ class DatabaseSeeder extends Seeder
         $offer_one->products()->attach(1);
         $offer_two->products()->attach(2);
         $offer_three->products()->attach(3);
+
+
+        // attach comments to the products
+            // Create 10 records of customers
+        $products->each(function ($product) {
+            // Seed the relation with one address
+            $comments = Comment::factory()->count(2)->create();
+            $product->comments()->saveMany($comments);
+        });
+        // $products = Product::first()->attac('Hi' , 1);
 
     }
 }

@@ -9,8 +9,8 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        // Get active products.
         $products = Product::where('status' , '=' , 1)->paginate(9);
-
         // Check requset
         if($request->expectsJson()){
             return response()->json(['success' => true ,'data' => $products]);
@@ -23,6 +23,5 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         return view('frontend.products.show' , compact('product'));
-
     }
 }

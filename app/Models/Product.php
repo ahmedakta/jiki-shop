@@ -39,4 +39,10 @@ class Product extends Model
         return $this->belongsTo(shoppingCart::class , 'shopping_carts' , 'product_id' , 'user_id');
     }
 
+    // set comments relation
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }
