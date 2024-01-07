@@ -35,6 +35,9 @@
 
     <!-- Include AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    {{-- Box Icons --}}
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
@@ -274,17 +277,37 @@
         app.controller('AppController', function($scope, $http) {
             // Get cart data from Laravel backend
             // Use embedded JSON data
-            $scope.products = jsonData;
+            $scope.data = jsonData;
             $http.get('/cart').then(function(response) {
                 $scope.cart = response.data.data;
                 $scope.cartItems = Object.keys(response.data.data).length;
             });
-            // 
+            // Get Data
             $scope.getData = function (url , params) {
-                $http.get(url, { params: params })
-                    //  TODO make var name $data 
+                var config = {
+                    params: params,
+                    headers: {
+                        'Authorization': 'bd3e1aed20a036fad49dd1d4486b63ef187edbf3460664e6535642db4fb09ed9', // Replace with your actual token
+                        'Other-Header': 'header-value' // Add other headers as needed
+                    }
+                };
+                $scope.dataLoading = true;
+                $scope.data = null;
+                $http.get(url, config)
                     .then(function (response) {
-                        $scope.products = response.data.data;
+                        $scope.dataLoading = false;
+                        $scope.data = response.data.data;
+                    });
+            };
+            // Post Data To Save
+            $scope.postData = function (url , params) {
+                $scope.formData.productId = params;
+                data = $scope.formData;
+                $scope.dataLoading = true;
+                $http.post(url, data)
+                    .then(function (response) {
+                        $scope.dataLoading = false;
+                        $scope.data = response.data.data;
                     });
             };
             // Add product to cart
@@ -298,7 +321,6 @@
                     $http.get('/cart').then(function(response) {
                         $scope.cart = response.data.data;
                         $scope.cartItems = Object.keys(response.data.data).length;
-                        console.log($scope.cart);
                     });
                 });
             };
@@ -347,14 +369,14 @@
                 currentPage: '=',
                 links: '=',
                 getData: '&',
-                products:'=',
+                data:'=',
                 },
                 // '<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>'+
                 link: function (scope, element, attrs) {
                     scope.getData = function (url) {
                         $http.get(url)
                             .then(function (response) {
-                                scope.products = response.data.data;
+                                scope.data = response.data.data;
                         });
                     };
                 },

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -24,4 +25,6 @@ class ProductController extends Controller
         $product = Product::find($id);
         return view('frontend.products.show' , compact('product'));
     }
+
+
 }

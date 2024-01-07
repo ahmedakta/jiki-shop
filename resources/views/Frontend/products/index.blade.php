@@ -194,7 +194,7 @@
 				<section class="lattest-product-area pb-40 category-list">
 					<div class="row">
                             <!-- single product -->
-                            <div class="col-lg-4 col-md-6" ng-repeat="product in products.data">
+                            <div class="col-lg-4 col-md-6" ng-repeat="product in data.data">
                                 <div class="single-product">
                                     <img class="img-fluid" src="{{asset('theme/img/product/p1.jpg')}}" alt="">
                                     <div class="product-details">
@@ -235,11 +235,11 @@
 				<!-- End Best Seller -->
 				<!-- Start Filter Bar -->
 				<posts-pagination
-				current-page="products.current_page" 
-				total-pages="products.last_page" 
-				items-per-page="products.per_page"
-				links="products.links"
-				products="products"
+				current-page="data.current_page" 
+				total-pages="data.last_page" 
+				items-per-page="data.per_page"
+				links="data.links"
+				data="data"
 				>
 				</posts-pagination>
 				<!-- End Filter Bar -->

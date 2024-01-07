@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('category_id')->comment('We using category_id to seperate between the reviews and the normal comments.');
+            $table->string('user_name')->nullable();
+            $table->string('user_email')->nullable();
+            $table->string('user_phone')->nullable();
             $table->string('comment_message');
             $table->timestamps();
 

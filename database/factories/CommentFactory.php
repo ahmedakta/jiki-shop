@@ -21,7 +21,7 @@ class CommentFactory extends Factory
             'parent_id' => null,
             'product_id' => $this->faker->numberBetween(1, 50),
             'user_id' => 1,
-            'comment_message' => $this->faker->paragraph,
+            'comment_message' => $this->faker->paragraph(2),
         ];
     }
 }

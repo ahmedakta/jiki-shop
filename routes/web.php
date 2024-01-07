@@ -6,6 +6,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShoppingCartController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,19 +19,21 @@ use App\Http\Controllers\ShoppingCartController;
 |
 */
 
-// ***************** BACKEND ******************* //
 
 
 // Route::get('/', function () {
 //     return view('frontend/index');
 // });
 
-Route::get('/', [HomeController::class, 'index']);
 
-
+// ********** AUTH ******************
 Auth::routes();
 
+
+// ********** Website Pages *********************
+Route::get('/', [HomeController::class, 'index']);
 Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('contact' , [PageController::class ,'contact'])->name('pages.contact');
 
 // Group for user-related routes with 'user' prefix
 Route::group(['prefix' => 'user'], function () {
@@ -57,8 +60,14 @@ Route::group(['prefix' => 'blogs'], function () {
 Route::group(['prefix' => 'products'], function () {
     Route::get('/', [ProductController::class, 'index'])->name('products.index');
     Route::get('/{id}', [ProductController::class, 'show'])->name('products.show');
+    // ************* Ajax Requests *******************
+    Route::middleware(['api.token'])->group(function () {
+        Route::get('{id}/comments', [CommentController::class, 'index']);
+    });
+    Route::post('store/comment' , [CommentController::class , 'store'])->name('comments.store');
 });
-Route::get('/contact' , [PageController::class ,'contact'])->name('pages.contact');
+
+
 
 // ********** Group for basket-related routes with 'cart' prefix *************
 Route::group(['prefix' => 'cart'], function () {
@@ -66,9 +75,10 @@ Route::group(['prefix' => 'cart'], function () {
     Route::get('/', [ShoppingCartController::class, 'index'])->name('cart.index');
     Route::post('store', [ShoppingCartController::class, 'store'])->name('cart.store');
     Route::post('product/quantity', [ShoppingCartController::class, 'update'])->name('cart.update');
-
+    
     // Route for displaying a specific blog
     Route::get('{id}', [PageController::class, 'show'])->name('blog.show');
     // Add more blog-related routes here
 });
+
 
