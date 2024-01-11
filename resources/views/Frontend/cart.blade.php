@@ -20,7 +20,8 @@
         <div class="container">
             <div class="cart_inner">
                 <div class="table-responsive">
-                    <table class="table" ng-if="cart.length != 0">
+                    <div ng-if="dataLoading" class="text-center"><i class='bx bx-loader-circle bx-spin'></i></div>
+                    <table class="table" ng-if="cart.length != 0 && !dataLoading">
                         <thead>
                             <tr>
                                 <th scope="col">{{__('Product')}}</th>

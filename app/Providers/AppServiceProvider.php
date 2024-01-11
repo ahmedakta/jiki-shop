@@ -3,9 +3,9 @@
 namespace App\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,7 +31,8 @@ class AppServiceProvider extends ServiceProvider
 
 
         // *** User Basket Information
-        $user = Auth::user();
-        View::share('user', $user);
+        View::creator('*', function ($view) {
+            $view->with('user', auth()->user());
+        });
     }
 }

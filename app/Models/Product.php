@@ -42,7 +42,7 @@ class Product extends Model
     // set comments relation
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->where('parent_id', null);
     }
 
 }

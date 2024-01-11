@@ -47,7 +47,7 @@
 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
 							 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
 						</div>
-						<div class="card_area d-flex align-items-center">
+							<div class="card_area d-flex align-items-center">
 							<a class="primary-btn" href="#">Add to Cart</a>
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
 							<a class="icon_btn" href="#" ng-style="{'background' : isProductInCart({{$product->id}}) ? 'linear-gradient(90deg, #d2b770 0%, #ff6c00 100%)' : '' }"><i class="lnr lnr lnr-heart"></i></a>
@@ -163,61 +163,49 @@
 									<div class="review_item" ng-repeat="comment in data">
 										<div class="media">
 											<div class="d-flex">
-												<img src="img/product/review-1.png" alt="">
+												<img src="{{asset('theme/img/product/review-1.png')}}" alt="">
 											</div>
 											<div class="media-body">
 												<h4>@{{comment.user.name}}</h4>
 												<h5>@{{comment.created_at}}</h5>
-												<a class="reply_btn" href="#">Reply</a>
+												<a class="reply_btn" ng-class="{'primary-btn': replyToComment.id == comment.id}" ng-click="!replyToComment || replyToComment.id != comment.id ? replyToUser(comment) : replyToUser('')" ng-if="comment.user.id != {{$user->id}}">{{__('Reply')}}</a>
+												<a class="genric-btn primary-border small" ng-if="comment.user.id == {{$user->id}}" > as<span class="ti-trash"></span></a>
 											</div>
 										</div>
 										<p>@{{comment.comment_message}}</p>
-									</div>
-								{{-- <div class="review_item reply">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-2.png" alt="">
+										<div class="review_item reply" ng-if="comment.replies.length" ng-repeat="reply in comment.replies">
+											<div class="media">
+												<div class="d-flex">
+													<img src="{{asset('theme/img/product/review-2.png')}}" alt="">
+												</div>
+												<div class="media-body">
+													<h4>@{{reply.user.name}}</h4>
+													<h5>12th Feb, 2018 at 05:56 pm</h5>
+												</div>
+											</div>
+											<p>@{{reply.comment_message}}</p>
 										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div> --}}
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="review_box">
-								<h4>Post a comment</h4>
-								<form ng-init="encryptedId = '{{ encrypt($product->id) }}'" ng-submit="postData('store/comment' , encryptedId)">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="name" ng-model="formData.name" placeholder="Your Full name">
+								@guest
+								<h4 class="text-center"><a href="{{route('login')}}">{{__('Login')}}</a><br>{{__('To Post A Comment..')}}</h4>
+								@else
+								<h4 ng-if="replyToComment">{{__('Replying To')}} @{{replyToComment.user.name}}</h4>
+									<h4 ng-if="!replyToComment">{{__('Post a comment')}}</h4>
+									<form ng-init="encryptedId = '{{ encrypt($product->id) }}'" ng-submit="postData('store/comment' , { encryptedId: encryptedId, replyingCommentId: replyToComment.id })">
+										<div class="col-md-12">
+											<div class="form-group">
+												<textarea rows="5" class="form-control" ng-model="formData.message" id="message" rows="1" placeholder="{{__('Your Comment..')}}"></textarea>
+											</div>
 										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="email" class="form-control" id="email" ng-model="formData.email" placeholder="Email Address">
+										<div class="col-md-12 text-right">
+											<button type="submit" value="submit" class="btn primary-btn" ng-click="">{{__('Post')}}</button>
 										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="number" ng-model="formData.number" placeholder="Phone Number">
-										</div>
-									</div>	
-									<div class="col-md-12">
-										<div class="form-group">
-											<textarea class="form-control" ng-model="formData.message" id="message" rows="1" placeholder="Message"></textarea>
-										</div>
-									</div>
-									<div class="col-md-12 text-right">
-										<button type="submit" value="submit" class="btn primary-btn">Submit Now</button>
-									</div>
-								</form>
+									</form>
+								@endguest
 							</div>
 						</div>
 					</div>
@@ -353,141 +341,4 @@
 		</div>
 	</section>
 	<!--================End Product Description Area =================-->
-
-	<!-- Start related-product Area -->
-	<section class="related-product-area section_gap_bottom">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-lg-6 text-center">
-					<div class="section-title">
-						<h1>Deals of the Week</h1>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-							magna aliqua.</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-9">
-					<div class="row">
-						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r1.jpg" alt=""></a>
-								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r2.jpg" alt=""></a>
-								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r3.jpg" alt=""></a>
-								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r5.jpg" alt=""></a>
-								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r6.jpg" alt=""></a>
-								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r7.jpg" alt=""></a>
-								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
-							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r9.jpg" alt=""></a>
-								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
-							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r10.jpg" alt=""></a>
-								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
-							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r11.jpg" alt=""></a>
-								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="ctg-right">
-						<a href="#" target="_blank">
-							<img class="img-fluid d-block mx-auto" src="img/category/c5.jpg" alt="">
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End related-product Area -->
 @endsection
