@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -16,7 +17,8 @@ class ProductController extends Controller
         if($request->expectsJson()){
             return response()->json(['success' => true ,'data' => $products]);
         }
-        return view('frontend.products.index')->with('jsonData' , $products->toJson());
+        $categories = Category::where('parent_id' , '=' , 1)->get();
+        return view('frontend.products.index' , compact('categories'))->with('jsonData' , $products->toJson());
     }
 
     // show product fucntion

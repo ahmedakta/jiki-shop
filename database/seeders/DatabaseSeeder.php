@@ -26,10 +26,13 @@ class DatabaseSeeder extends Seeder
         ]);
         // Fixed Main Categories
         // 1 - Products 
+            // - Category
+            // - Brand
+            // - Color
         // 2 - Pages 
         // 3 - Offers 
 
-        // Fore Products
+        // For Products
         \App\Models\Category::factory()->create([
             'language_id' => 0,
             'parent_id' => 0,
