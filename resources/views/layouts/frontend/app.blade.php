@@ -510,9 +510,9 @@
 						'</select>'+
 					'</div>'+
 					'<div class="pagination">'+
-						// '<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>'+
+						// '<a href="@{{page.previousPage}}" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>'+
 						'<a ng-repeat="page in links" ng-click="getData(page.url)" ng-class="{active: page.active}">@{{page.label}}</a>'+
-						// '<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>'+
+						// '<a href="@{{page.nextPage}}" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>'+
 					'</div>'+
 				'</div>',
                 scope: {

@@ -44,8 +44,7 @@ class ShoppingCartController extends Controller
         // Check if user registered or not
         if ($user) {
             // we should check first if product added before or not.
-                // dd($user->cartProducts->where('id' , '=' , $productId));
-            if($user->cartProducts->where('id' , '=' , $productId)->first()){
+            if($user->cartProducts->where('id' , '=' , $productId)->first()){ // get added to shopping_cart products..
                 // delete product from basket
                 $user->cartProducts()->detach($productId);
                 $status = 'deleted';

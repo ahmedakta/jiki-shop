@@ -50,7 +50,7 @@
 							<div class="card_area d-flex align-items-center">
 							<a class="primary-btn" href="#">Add to Cart</a>
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-							<a class="icon_btn" href="#" ng-style="{'background' : isProductInCart({{$product->id}}) ? 'linear-gradient(90deg, #d2b770 0%, #ff6c00 100%)' : '' }"><i class="lnr lnr lnr-heart"></i></a>
+							<a class="icon_btn" href="#" ng-style="{'background' : isProductInCart({{$product->id}}) ? 'linear-gradient(90deg, #d2b770 0%, #ff6c00 100%)' : '' }"><i class="ti-bag"></i></a>
 						</div>
 					</div>
 				</div>
@@ -70,11 +70,7 @@
 					 aria-selected="false">Specification</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" ng-click="getData('{{encrypt($product->id)}}/comments')" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-					 aria-selected="false">Comments</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+					<a class="nav-link active" ng-click="getData('{{encrypt($product->id)}}/comments')" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
 								aria-selected="false">Reviews </a> 
 				</li>
 			</ul>
@@ -155,66 +151,6 @@
 						</table>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="comment_list">
-								<div ng-if="dataLoading" class="text-center"><i class='bx bx-loader-circle bx-spin'></i></div>
-									<div class="review_item" ng-if="data.length" ng-repeat="comment in data">
-										<div class="media">
-											<div class="d-flex">
-												<img src="{{asset('theme/img/product/review-1.png')}}" alt="">
-											</div>
-											<div class="media-body">
-												<h4>@{{comment.user.name}}</h4>
-												<h5>@{{comment.created_at}}</h5>
-												<a class="reply_btn" ng-class="{'primary-btn': replyToComment.id == comment.id}" ng-click="!replyToComment || replyToComment.id != comment.id ? replyToUser(comment) : replyToUser('')" ng-if="comment.user.id != {{isset($user) ? $user->id : null}}">{{__('Reply')}}</a>
-												<a class="delete_reply_btn genric-btn primary-border small" ng-if="comment.user.id == {{isset($user) ? $user->id : null}}" ng-click="deleteData('comments/'+ {{($product->id)}} + '/' + comment.id + '/delete')"><span class="ti-trash"></span></a>
-											</div>
-										</div>
-										<p>@{{comment.comment_message}}</p>
-										<div class="review_item reply" ng-if="comment.replies.length" ng-repeat="reply in comment.replies">
-											<div class="media">
-												<div class="d-flex">
-													<img src="{{asset('theme/img/product/review-2.png')}}" alt="">
-												</div>
-												<div class="media-body">
-													<h4>@{{reply.user.name}}</h4>
-													<h5>12th Feb, 2018 at 05:56 pm</h5>
-													
-													<a class="delete_reply_btn genric-btn danger-border small" ng-if="reply.user.id == {{isset($user) ? $user->id : null}}" ng-click="deleteData('comments/'+ {{($product->id)}} + '/' + reply.id + '/delete')"><span class="ti-trash"></span></a>
-												</div>
-											</div>
-											<p>@{{reply.comment_message}}</p>
-										</div>
-									</div>
-									<div ng-if="data.length == 0">
-											No Comments
-									</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="review_box">
-								@guest
-								<h4 class="text-center"><a href="{{route('login')}}">{{__('Login')}}</a><br>{{__('To Post A Comment..')}}</h4>
-								@else
-								<h4 ng-if="replyToComment">{{__('Replying To')}} @{{replyToComment.user.name}}</h4>
-									<h4 ng-if="!replyToComment">{{__('Post a comment')}}</h4>
-									<form ng-init="encryptedId = '{{ encrypt($product->id) }}'" ng-submit="postData('store/comment' , { encryptedId: encryptedId, replyingCommentId: replyToComment.id })">
-										<div class="col-md-12">
-											<div class="form-group">
-												<textarea rows="5" class="form-control" ng-model="formData.message" id="message" rows="1" placeholder="{{__('Your Comment..')}}"></textarea>
-											</div>
-										</div>
-										<div class="col-md-12 text-right">
-											<button type="submit" value="submit" class="btn primary-btn" ng-click="">{{__('Post')}}</button>
-										</div>
-									</form>
-								@endguest
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
 					<div class="row">
 						<div class="col-lg-6">
@@ -245,64 +181,49 @@
 								</div>
 							</div>
 							<div class="review_list">
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-1.png" alt="">
+								<div ng-if="dataLoading" class="text-center"><i class='bx bx-loader-circle bx-spin'></i></div>
+									<div class="review_item" ng-if="data.length" ng-repeat="comment in data">
+										<div class="media">
+											<div class="d-flex">
+												<img src="{{asset('theme/img/product/review-1.png')}}" alt="">
+											</div>
+											<div class="media-body">
+												<h4>@{{comment.user.name}}</h4>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<a class="reply_btn" ng-class="{'primary-btn': replyToComment.id == comment.id}" ng-click="!replyToComment || replyToComment.id != comment.id ? replyToUser(comment) : replyToUser('')" ng-if="comment.user.id != {{isset($user) ? $user->id : null}}">{{__('Reply')}}</a>
+												<a class="delete_reply_btn genric-btn primary-border small" ng-if="comment.user.id == {{isset($user) ? $user->id : null}}" ng-click="deleteData('comments/'+ {{($product->id)}} + '/' + comment.id + '/delete')"><span class="ti-trash"></span></a>
+											</div>
 										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-3.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
+										<p>@{{comment.comment_message}}</p>
+										<div class="review_item reply" ng-if="comment.replies.length" ng-repeat="reply in comment.replies">
+											<div class="media">
+												<div class="d-flex">
+													<img src="{{asset('theme/img/product/review-2.png')}}" alt="">
+												</div>
+												<div class="media-body">
+													<h4>@{{reply.user.name}}</h4>
+													<h5>12th Feb, 2018 at 05:56 pm</h5>
+													
+													<a class="delete_reply_btn genric-btn danger-border small" ng-if="reply.user.id == {{isset($user) ? $user->id : null}}" ng-click="deleteData('comments/'+ {{($product->id)}} + '/' + reply.id + '/delete')"><span class="ti-trash"></span></a>
+												</div>
+											</div>
+											<p>@{{reply.comment_message}}</p>
 										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
+									<div ng-if="data.length == 0">
+											No Comments
+									</div>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="review_box">
+								@guest
+								<h4 class="text-center"><a href="{{route('login')}}">{{__('Login')}}</a><br>{{__('To Post A Comment..')}}</h4>
+								@else
 								<h4>Add a Review</h4>
 								<p>Your Rating:</p>
 								<ul class="list">
@@ -313,31 +234,19 @@
 									<li><a href="#"><i class="fa fa-star"></i></a></li>
 								</ul>
 								<p>Outstanding</p>
-								<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="name" name="name" placeholder="Your Full name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Full name'">
+								<h4 ng-if="replyToComment">{{__('Replying To')}} @{{replyToComment.user.name}}</h4>
+									<h4 ng-if="!replyToComment">{{__('Post a comment')}}</h4>
+									<form ng-init="encryptedId = '{{ encrypt($product->id) }}'" ng-submit="postData('store/comment' , { encryptedId: encryptedId, replyingCommentId: replyToComment.id })">
+										<div class="col-md-12">
+											<div class="form-group">
+												<textarea rows="5" class="form-control" ng-model="formData.message" id="message" rows="1" placeholder="{{__('Your Comment..')}}"></textarea>
+											</div>
 										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+										<div class="col-md-12 text-right">
+											<button type="submit" value="submit" class="btn primary-btn" ng-click="">{{__('Post')}}</button>
 										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="number" name="number" placeholder="Phone Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<textarea class="form-control" name="message" id="message" rows="1" placeholder="Review" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea></textarea>
-										</div>
-									</div>
-									<div class="col-md-12 text-right">
-										<button type="submit" value="submit" class="primary-btn">Submit Now</button>
-									</div>
-								</form>
+									</form>
+								@endguest
 							</div>
 						</div>
 					</div>

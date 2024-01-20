@@ -85,4 +85,10 @@ Route::group(['prefix' => 'cart'], function () {
     // Add more blog-related routes here
 });
 
+// ********** Group for favorites routes with 'favorite' prefix *************
 
+Route::group(['prefix' => 'favorite'], function () {
+    // Route for displaying all blogs
+    Route::post('store', [FavoriteController::class, 'store'])->name('favorite.store');
+    
+});

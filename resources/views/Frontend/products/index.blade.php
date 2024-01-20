@@ -242,6 +242,7 @@
 				data="data"
 				>
 				</posts-pagination>
+
 				<!-- End Filter Bar -->
 			</div>
 		</div>

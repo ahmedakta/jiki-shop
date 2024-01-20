@@ -60,4 +60,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    // favorited products
+    public function favorites()
+    {
+        return $this->hasMany(Product::class , 'favorites' , 'user_id' , 'product_id');
+    }
 }
