@@ -17,8 +17,10 @@ class ProductController extends Controller
         if($request->expectsJson()){
             return response()->json(['success' => true ,'data' => $products]);
         }
-        $categories = Category::where('parent_id' , '=' , 1)->get();
-        return view('frontend.products.index' , compact('categories'))->with('jsonData' , $products->toJson());
+        $categories = Category::where('parent_id' , '=' , 11)->get();
+        $brands = Category::where('parent_id' , '=' , 12)->get();
+        $colors = Category::where('parent_id' , '=' , 13)->get();
+        return view('frontend.products.index' , compact('categories' , 'brands' , 'colors'))->with('jsonData' , $products->toJson());
     }
 
     // show product fucntion

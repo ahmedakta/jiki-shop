@@ -126,9 +126,37 @@ class DatabaseSeeder extends Seeder
 
 
         // Category For Products.
-        \App\Models\Category::factory()->create([
+        \App\Models\Category::factory()->create([ // 11
             'language_id' => 0,
             'parent_id' => 1,
+            'category_name' => 'CATEGORY',
+            'category_slug' => 'category',
+            'category_desc' => 'Category Of Product.',
+            'category_configs' => '[{"icon":"c1.jpg"}]',  
+            'status' => 1, 
+        ]);
+        \App\Models\Category::factory()->create([ // 12
+            'language_id' => 0,
+            'parent_id' => 1,
+            'category_name' => 'BRAND',
+            'category_slug' => 'brand',
+            'category_desc' => 'Brand Of Product.',
+            'category_configs' => '[{"icon":"c1.jpg"}]',  
+            'status' => 1, 
+        ]);
+        \App\Models\Category::factory()->create([ // 13
+            'language_id' => 0,
+            'parent_id' => 1,
+            'category_name' => 'COLOR',
+            'category_slug' => 'color',
+            'category_desc' => 'Color Of Product.',
+            'category_configs' => '[{"icon":"c1.jpg"}]',  
+            'status' => 1, 
+        ]);
+
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 11,
             'category_name' => 'SNEAKER FOR SPORTS',
             'category_slug' => '',
             'category_desc' => '',
@@ -137,7 +165,7 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\Category::factory()->create([
             'language_id' => 0,
-            'parent_id' => 1,
+            'parent_id' => 11,
             'category_name' => 'SNEAKER FOR SPORTS',
             'category_slug' => '',
             'category_desc' => '',
@@ -146,7 +174,7 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\Category::factory()->create([
             'language_id' => 0,
-            'parent_id' => 1,
+            'parent_id' => 11,
             'category_name' => 'PRODUCT FOR COUPLE',
             'category_slug' => '',
             'category_desc' => '',
@@ -155,13 +183,111 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\Category::factory()->create([
             'language_id' => 0,
-            'parent_id' => 1,
+            'parent_id' => 11,
             'category_name' => 'SNEAKER FOR SPORTS',
             'category_slug' => '',
             'category_desc' => '',
             'category_configs' => '[{"icon":"c4.jpg"}]',  
             'status' => 1, 
         ]);
+        // Brands
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 12,
+            'category_name' => 'Woodland',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c4.jpg"}]',  
+            'status' => 1, 
+        ]);
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 12,
+            'category_name' => 'Nike',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c4.jpg"}]',  
+            'status' => 1, 
+        ]);
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 12,
+            'category_name' => 'Adidas',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c4.jpg"}]',  
+            'status' => 1, 
+        ]);
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 12,
+            'category_name' => 'Puma',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c4.jpg"}]',  
+            'status' => 1, 
+        ]);
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 12,
+            'category_name' => 'Reebok',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c4.jpg"}]',  
+            'status' => 1, 
+        ]);
+
+        // Colors
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 13,
+            'category_name' => 'Black',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c4.jpg"}]',  
+            'status' => 1, 
+        ]);
+
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 13,
+            'category_name' => 'Blue',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c4.jpg"}]',  
+            'status' => 1, 
+        ]);
+
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 13,
+            'category_name' => 'Red',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c4.jpg"}]',  
+            'status' => 1, 
+        ]);
+
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 13,
+            'category_name' => 'Brown',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c4.jpg"}]',  
+            'status' => 1, 
+        ]);
+
+        \App\Models\Category::factory()->create([
+            'language_id' => 0,
+            'parent_id' => 13,
+            'category_name' => 'Gray',
+            'category_slug' => '',
+            'category_desc' => '',
+            'category_configs' => '[{"icon":"c4.jpg"}]',  
+            'status' => 1, 
+        ]);
+
 
         // Some Categories
         Category::factory()->count(5)->create();
