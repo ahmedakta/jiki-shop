@@ -43,4 +43,19 @@ class CommentController extends Controller
         }
         return response()->json(['success' => false ,'data' => null]);
     }
+
+    public function destroy($productId , $commentId)
+    {
+
+        $post = Comment::find($commentId);
+        if (!$post) {
+            return response()->json(['success' => false, 'message' => 'Post not found'], 404);
+        }
+        $post->delete();
+
+        $comments  = Product::find($productId)->comments()->with(['user' , 'replies.user'])->get(); // todo select columngs from the user for security
+        $comments = convertJson($comments);
+        
+        return response()->json(['success' => true, 'message' => 'Post deleted successfully' , 'data' => $comments]);
+    }
 }

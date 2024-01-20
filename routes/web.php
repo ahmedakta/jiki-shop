@@ -56,8 +56,11 @@ Route::group(['prefix' => 'blogs'], function () {
     // Add more blog-related routes here
 });
 
+// ********** Group For Comments ****************
+
 // ********** Group For Products ****************
 Route::group(['prefix' => 'products'], function () {
+    Route::delete('comments/{productId}/{commentId}/delete', [CommentController::class, 'destroy'])->name('comment.destroy');
     Route::get('/', [ProductController::class, 'index'])->name('products.index');
     Route::get('/{id}', [ProductController::class, 'show'])->name('products.show');
     // ************* Ajax Requests *******************
@@ -66,6 +69,7 @@ Route::group(['prefix' => 'products'], function () {
     });
     Route::post('store/comment' , [CommentController::class , 'store'])->name('comments.store');
 });
+
 
 
 

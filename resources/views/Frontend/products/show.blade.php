@@ -160,7 +160,7 @@
 						<div class="col-lg-6">
 							<div class="comment_list">
 								<div ng-if="dataLoading" class="text-center"><i class='bx bx-loader-circle bx-spin'></i></div>
-									<div class="review_item" ng-repeat="comment in data">
+									<div class="review_item" ng-if="data.length" ng-repeat="comment in data">
 										<div class="media">
 											<div class="d-flex">
 												<img src="{{asset('theme/img/product/review-1.png')}}" alt="">
@@ -168,8 +168,8 @@
 											<div class="media-body">
 												<h4>@{{comment.user.name}}</h4>
 												<h5>@{{comment.created_at}}</h5>
-												<a class="reply_btn" ng-class="{'primary-btn': replyToComment.id == comment.id}" ng-click="!replyToComment || replyToComment.id != comment.id ? replyToUser(comment) : replyToUser('')" ng-if="comment.user.id != {{$user->id}}">{{__('Reply')}}</a>
-												<a class="genric-btn primary-border small" ng-if="comment.user.id == {{$user->id}}" > as<span class="ti-trash"></span></a>
+												<a class="reply_btn" ng-class="{'primary-btn': replyToComment.id == comment.id}" ng-click="!replyToComment || replyToComment.id != comment.id ? replyToUser(comment) : replyToUser('')" ng-if="comment.user.id != {{isset($user) ? $user->id : null}}">{{__('Reply')}}</a>
+												<a class="delete_reply_btn genric-btn primary-border small" ng-if="comment.user.id == {{isset($user) ? $user->id : null}}" ng-click="deleteData('comments/'+ {{($product->id)}} + '/' + comment.id + '/delete')"><span class="ti-trash"></span></a>
 											</div>
 										</div>
 										<p>@{{comment.comment_message}}</p>
@@ -181,10 +181,15 @@
 												<div class="media-body">
 													<h4>@{{reply.user.name}}</h4>
 													<h5>12th Feb, 2018 at 05:56 pm</h5>
+													
+													<a class="delete_reply_btn genric-btn danger-border small" ng-if="reply.user.id == {{isset($user) ? $user->id : null}}" ng-click="deleteData('comments/'+ {{($product->id)}} + '/' + reply.id + '/delete')"><span class="ti-trash"></span></a>
 												</div>
 											</div>
 											<p>@{{reply.comment_message}}</p>
 										</div>
+									</div>
+									<div ng-if="data.length == 0">
+											No Comments
 									</div>
 							</div>
 						</div>

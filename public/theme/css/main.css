@@ -4128,8 +4128,24 @@ label {
         right: 0px;
         top: 14px;
         @icnlude transition; }
+      .review_item .media .media-body .delete_reply_btn {
+        border: 1px solid #e0e0e0;
+        display: inline-block;
+        line-height: 32px;
+        border-radius: 16px;
+        font-size: 14px;
+        font-family: "Roboto", sans-serif;
+        color: #222222;
+        position: absolute;
+        right: 0px;
+        top: 14px;
+        @icnlude transition; }
         .review_item .media .media-body .reply_btn:hover {
           background: #ffba00;
+          border-color: #ffba00;
+          color: #fff; }
+          .review_item .media .media-body .delete_reply_btn:hover {
+          background: red;
           border-color: #ffba00;
           color: #fff; }
   .review_item p {

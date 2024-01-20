@@ -437,6 +437,7 @@
             };
             // Post Data To Save
             $scope.postData = function (url , params) {
+                // TODO change this stupid logic
                 $scope.formData.productId = params.encryptedId;
                 $scope.formData.replyedCommentId = params.replyingCommentId;
                 data = $scope.formData;
@@ -447,7 +448,14 @@
                         $scope.data = response.data.data;
                     });
             };
-            // Add product to cart
+            // Delete Data
+            $scope.deleteData = function(url,params){
+                $http.delete(url ,params).then(function(response){
+                    $scope.data = response.data.data;
+                    console.log('deleted');
+                });
+            };
+            // Add product to cart TODO make it into postData
             $scope.addToCart = function(productId) {
                 $http.post('cart/store', { product_id: productId }).then(function(response) {
                     // change the button text
