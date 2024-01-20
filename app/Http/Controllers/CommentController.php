@@ -30,6 +30,7 @@ class CommentController extends Controller
     {
         $user = Auth::user();
         $data = $request->all();
+        // dd($data);
         $productId = decrypt($data['productId']);
         $comment = $user->comments()->create([
             'category_id' => 1,

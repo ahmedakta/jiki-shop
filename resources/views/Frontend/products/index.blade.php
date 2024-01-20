@@ -214,9 +214,12 @@
 												</span>
                                                 <p class="hover-text">@{{isProductInCart(product.id) ? 'Remove' : 'Add to bag'}}</p>
                                             </a>
-                                            <a href="" class="social-info">
-                                                <span class="lnr lnr-heart"></span>
-                                                <p class="hover-text">Wishlist</p>
+                                            <a href="" ng-click="postData('favorite/store',product.id)"  class="social-info">
+                                                <span class="lnr lnr-heart" ng-style="{
+													'transition' : isProductInFavorites(product.id) ? 'all 1s ease-out' : '',
+													'background' : isProductInFavorites(product.id) ? 'linear-gradient(326deg, rgba(121,9,9,1) 0%, rgba(250,250,250,1) 0%, rgba(206,43,3,1) 61%, rgba(255,0,0,1) 100%)' : '',
+												}"></span>
+                                                <p class="hover-text">@{{isProductInFavorites(product.id) ? 'Remove' : 'Wishlist'}}</p>
                                             </a>
                                             <a href="" class="social-info">
                                                 <span class="lnr lnr-sync"></span>

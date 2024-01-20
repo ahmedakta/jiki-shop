@@ -3,19 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Favrorite;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class FavoriteController extends Controller
 {
-    public function __construct()
+   
+    public function index(Request $request)
     {
-        $this->middleware('auth');
+        // get favories
+        // Check if the user is authenticated
+         if (Auth::check()) {
+            $userId = Auth::id();
+            $user = User::find($userId);
+            $userCart = $user->favorites;
+            $favorites = [];
+            foreach ($user->favorites as $key => $favorite) {
+                $favorites[$favorite->product_id] = $favorite;
+            }
+        } else {
+            $favorites = $request->session()->get('favorites');
+        }
+        $favorites = convertJson($favorites);
+        // Check requset
+        if($request->expectsJson()){
+            return response()->json(['success' => true ,'favorites' => $favorites]);
+        }
     }
-    
     // store
     public function store(Request $request)
     {
            // Set Main Variables
-           $productId = $request->input('product_id');
+           $productId = $request->all()[0];
            $user = Auth::user();
    
            // Check if user registered or not
@@ -24,15 +46,20 @@ class FavoriteController extends Controller
                    // dd($user->cartProducts->where('id' , '=' , $productId));
                if($user->favorites->where('product_id' , '=' , $productId)->first()){
                    // delete product from basket
-                   $user->favorites()->detach($productId);
+                   $user->favorites->where('product_id' , '=' , $productId)->first()->delete();
                    $status = 'deleted';
                }else{
-                   $user->favorites()->attach($productId);
+                   $user->favorites()->create(['product_id' => $productId]);
                    $status = 'success';
                }
-               $cart = $user->cartProducts;
+                //  TODO review this shit + review the angular js favorites & cart array****** IMPORTANT
+               $user->load('favorites');
+               $favorites = [];
+                foreach ($user->favorites as $key => $favorite) {
+                    $favorites[$favorite->product_id] = $favorite;
+                }
            }else{ // If User not logged in we storing the product into Session
-               $product = Product::find($productId);
+               $product = Product::find($productId);        
                $favorites = $request->session()->get('favorites' , []);
                // Check if the product is already in the cart
                if (isset($product) && !isset($favorites[$product->id])) {
@@ -42,8 +69,6 @@ class FavoriteController extends Controller
                        'product_title' => $product->product_title,
                        'product_price' => $product->product_price,
                        'product_photos' => $product->product_photos,
-                       'product_quantity' => $quantity,
-                       'total' => ($quantity * $product->product_price),
                    ];
                    $status = 'success';
                }else{
@@ -52,6 +77,6 @@ class FavoriteController extends Controller
                }
                $request->session()->put('favorites', $favorites);
            }
-           return response()->json(['status' => $status , 'data' => $favorites]);
+           return response()->json(['status' => $status , 'favorites' => $favorites]);
     }
 }

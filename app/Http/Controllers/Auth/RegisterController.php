@@ -68,6 +68,7 @@ class RegisterController extends Controller
         // We checking the cart session first , if there is ant products , 
         // we recording it into ShoppingCart of the user
         $cartItems = Session::get('cart');
+        $favoritesItems = Session::get('favorites');
         // Firstly create the user
         $user = User::create([
             'name' => $data['name'],
@@ -79,6 +80,13 @@ class RegisterController extends Controller
         {
             foreach ($cartItems as $key => $item) {
                 $user->cartProducts()->attach($key, ['quantity' => $item['product_quantity']]);
+            }
+        }
+        // check if tehre is items in session to store it
+        if(isset($favoritesItems) && count($favoritesItems))
+        {
+            foreach ($favoritesItems as $key => $item) {
+                $user->favorites()->create(['product_id' => $item['id']]);
             }
         }
         

@@ -50,7 +50,8 @@
 							<div class="card_area d-flex align-items-center">
 							<a class="primary-btn" href="#">Add to Cart</a>
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-							<a class="icon_btn" href="#" ng-style="{'background' : isProductInCart({{$product->id}}) ? 'linear-gradient(90deg, #d2b770 0%, #ff6c00 100%)' : '' }"><i class="ti-bag"></i></a>
+							<a class="icon_btn" href="" ng-click="addToCart({{$product->id}})" ng-style="{'background' : isProductInCart({{$product->id}}) ? 'linear-gradient(90deg, #d2b770 0%, #ff6c00 100%)' : '' }"><i class="ti-bag"></i></a>
+							<a class="icon_btn" ng-click="postData('favorite/store',{{$product->id}})" href="" ng-style="{'background' : isProductInFavorites({{$product->id}}) ? 'linear-gradient(326deg, rgba(121,9,9,1) 0%, rgba(250,250,250,1) 0%, rgba(206,43,3,1) 61%, rgba(255,0,0,1) 100%)' : '' }"><i class="ti-heart"></i></a>
 						</div>
 					</div>
 				</div>
@@ -236,7 +237,7 @@
 								<p>Outstanding</p>
 								<h4 ng-if="replyToComment">{{__('Replying To')}} @{{replyToComment.user.name}}</h4>
 									<h4 ng-if="!replyToComment">{{__('Post a comment')}}</h4>
-									<form ng-init="encryptedId = '{{ encrypt($product->id) }}'" ng-submit="postData('store/comment' , { encryptedId: encryptedId, replyingCommentId: replyToComment.id })">
+									<form ng-init="encryptedId = '{{ encrypt($product->id) }}'" ng-submit="postData('store/comment' , { encryptedId: encryptedId, type: 'comment', replyingCommentId: replyToComment.id })">
 										<div class="col-md-12">
 											<div class="form-group">
 												<textarea rows="5" class="form-control" ng-model="formData.message" id="message" rows="1" placeholder="{{__('Your Comment..')}}"></textarea>

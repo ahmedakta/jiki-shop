@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,11 @@ Route::group(['prefix' => 'products'], function () {
     Route::middleware(['api.token'])->group(function () {
         Route::get('{id}/comments', [CommentController::class, 'index']);
     });
+
+    // TODO : DELETE THESE
+    Route::post('cart/store', [ShoppingCartController::class, 'store'])->name('cart.store');
+    Route::post('favorite/store', [FavoriteController::class, 'store'])->name('favorite.store');
+    
     Route::post('store/comment' , [CommentController::class , 'store'])->name('comments.store');
 });
 
@@ -89,6 +95,7 @@ Route::group(['prefix' => 'cart'], function () {
 
 Route::group(['prefix' => 'favorite'], function () {
     // Route for displaying all blogs
+    Route::get('/', [FavoriteController::class, 'index'])->name('favorite.index');
     Route::post('store', [FavoriteController::class, 'store'])->name('favorite.store');
     
 });

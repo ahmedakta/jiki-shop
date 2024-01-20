@@ -109,12 +109,13 @@
                             <li class="nav-item {{Route::currentRouteName() == 'cart.index' ? 'active' : '' }}">
                                 <a href="{{route('cart.index')}}" class="cart">
                                     <span class="ti-bag"></span>
-                                    <span class="cart-count" >@{{cartItems}}</span>
+                                    <span class="cart-count">@{{cartItems}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="cart">
                                     <span class="ti-heart"></span>
+                                    <span class="favorites-count">@{{favoritesItems}}</span>
                                 </a>
                             </li>
                             <li class="nav-item submenu dropdown">
@@ -415,6 +416,11 @@
                 $scope.cart = response.data.data;
                 $scope.cartItems = Object.keys(response.data.data).length;
             });
+            $http.get('/favorite').then(function(response) {
+                $scope.favorites = response.data.favorites;
+                console.log($scope.favorites);
+                $scope.favoritesItems = Object.keys(response.data.favorites).length;
+            });
             // Get Data
             $scope.getData = function (url , params) {
                 var config = {
@@ -436,16 +442,27 @@
                     });
             };
             // Post Data To Save
-            $scope.postData = function (url , params) {
-                // TODO change this stupid logic
-                $scope.formData.productId = params.encryptedId;
-                $scope.formData.replyedCommentId = params.replyingCommentId;
-                data = $scope.formData;
+            $scope.postData = function (url  ,params) {
                 $scope.dataLoading = true;
-                $http.post(url, data)
+                if(params.type == 'comment')
+                {
+                    // TODO change this stupid logic
+                    $scope.formData.productId = params.encryptedId;
+                    $scope.formData.replyedCommentId = params.replyingCommentId;
+                    params = $scope.formData;
+                }
+                $http.post(url, params)
                     .then(function (response) {
                         $scope.dataLoading = false;
-                        $scope.data = response.data.data;
+                        if(response.data.data) // if we are returning data in json , update the data. 
+                        {
+                            $scope.data = response.data.data;
+                        }
+                        if(response.data.favorites) // if we are stored a favorite data, update favorite info.
+                        {
+                            $scope.favorites = response.data.favorites; // TODO: we should use getData global function..
+                            $scope.favoritesItems = Object.keys(response.data.favorites).length;
+                        }
                     });
             };
             // Delete Data
@@ -490,6 +507,9 @@
              // Function to check if a product is in the cart
             $scope.isProductInCart = function(productId) {
                 return $scope.cart && $scope.cart[productId];
+            };
+            $scope.isProductInFavorites = function(productId) {
+                return $scope.favorites && $scope.favorites[productId];
             };
 
             // // reply to the product comment
