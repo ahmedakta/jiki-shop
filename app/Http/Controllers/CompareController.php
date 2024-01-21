@@ -22,7 +22,12 @@ class CompareController extends Controller
            $product = Product::find($productId);
            $compareProducts = $request->session()->get('compareProducts' , []);
            // Check if the product is already in the compared products
-           if (isset($product) && !isset($compareProducts[$product->id]) && count($compareProducts) < 3) {
+           if(count($compareProducts) < 3)
+           {
+            $status = 'error';
+           return response()->json(['status' => $status , 'compareProducts' => null]);
+           }
+           if (isset($product) && !isset($compareProducts[$product->id])) {
                $compareProducts[$product->id] =
                [
                    'id' => $product->id,

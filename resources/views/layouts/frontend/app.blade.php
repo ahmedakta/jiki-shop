@@ -304,13 +304,13 @@
                 <div class="w3-row w3-card-4 w3-grey w3-round-large w3-border comparePanle w3-margin-top">
                     <div class="w3-row">
                         <div class="w3-col l9 m8 s6 w3-margin-top">
-                            <h4>Added for comparison</h4>
+                            <h4>{{__('Added for compression')}}</h4>
                         </div>
                         <div class="w3-col l3 m4 s6 w3-margin-top">
                            <div class="product-cart" ng-repeat="product in compareProducts">
                                 @{{product.product_title}}
                             </div>
-                            <button class="w3-btn w3-round-small w3-white w3-border notActive cmprBtn" disabled>Compare</button>
+                            <button class="w3-btn w3-round-small w3-white w3-border notActive cmprBtn" ng-disabled="compareProductsItems < 2">Compare</button>
                         </div>
                     </div>
                     <div class=" titleMargin w3-container comparePan">
