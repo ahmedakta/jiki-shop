@@ -217,8 +217,8 @@
                                                 <p class="hover-text">@{{isProductInFavorites(product.id) ? 'Remove' : 'Wishlist'}}</p>
                                             </a>
                                             <a href="" class="social-info">
-                                                <span class="lnr lnr-sync"></span>
-                                                <p class="hover-text">compare</p>
+                                                <span class="lnr lnr-sync"  ng-click="postData('compare/store',product.id)"></span>
+                                                <p class="hover-text">{{__('compare')}}</p>
                                             </a>
                                             <a href="" class="social-info">
                                                 <span class="lnr lnr-move"></span>

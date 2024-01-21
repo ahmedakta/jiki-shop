@@ -299,6 +299,25 @@
 				</div>
 			</div>
 		</div>
+           <!--preview panel-->
+            <div class="w3-container  w3-center" ng-show="compareProductsItems">
+                <div class="w3-row w3-card-4 w3-grey w3-round-large w3-border comparePanle w3-margin-top">
+                    <div class="w3-row">
+                        <div class="w3-col l9 m8 s6 w3-margin-top">
+                            <h4>Added for comparison</h4>
+                        </div>
+                        <div class="w3-col l3 m4 s6 w3-margin-top">
+                           <div class="product-cart" ng-repeat="product in compareProducts">
+                                @{{product.product_title}}
+                            </div>
+                            <button class="w3-btn w3-round-small w3-white w3-border notActive cmprBtn" disabled>Compare</button>
+                        </div>
+                    </div>
+                    <div class=" titleMargin w3-container comparePan">
+                    </div>
+                </div>
+            </div>
+    <!--end of preview panel-->
 	</section>
 	<!-- End related-product Area -->
     <!-- start footer Area -->
@@ -463,6 +482,11 @@
                             $scope.favorites = response.data.favorites; // TODO: we should use getData global function..
                             $scope.favoritesItems = Object.keys(response.data.favorites).length;
                         }
+                        if(response.data.compareProducts) // if we are stored a favorite data, update favorite info.
+                        {
+                            $scope.compareProducts = response.data.compareProducts; // TODO: we should use getData global function..
+                            $scope.compareProductsItems = Object.keys(response.data.compareProducts).length;
+                        }
                     });
             };
             // Delete Data
@@ -494,6 +518,19 @@
                         $scope.cartItems = Object.keys(response.data.data).length;
                     });
                 });
+            };
+
+            // Compare Products Logic
+            $scope.compareProducts =  [];
+            $scope.compareProduct = function(product)
+            {
+                if ($scope.compareProducts.indexOf(product) === -1) {
+                    $scope.compareProducts.push(product);
+                } else {
+                    // Remove the product if it's already in the compare array (toggle)
+                    $scope.compareProducts.splice($scope.compareProducts.indexOf(product), 1);
+                }
+                console.log($scope.compareProducts);
             };
 
 

@@ -5852,4 +5852,24 @@ label {
   background: linear-gradient(90deg, #d2b770 0%, #ff6c00 100%);
   color:red;
 }
+
+
+
+
+
+
+
+
+/* Compare Products Modal */
+.comparePanle{
+  background:linear-gradient(90deg, #d2b770 0%, #ff6c00 100%) ;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  z-index: 3;
+  justify-content: center;
+  bottom: 0;
+  position: fixed;
+}
+/* End Of Compare Products Modal */
 /*# sourceMappingURL=main.css.map */

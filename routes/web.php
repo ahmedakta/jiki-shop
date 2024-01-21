@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CompareController;
 use App\Http\Controllers\FavoriteController;
 
 /*
@@ -97,5 +98,13 @@ Route::group(['prefix' => 'favorite'], function () {
     // Route for displaying all blogs
     Route::get('/', [FavoriteController::class, 'index'])->name('favorite.index');
     Route::post('store', [FavoriteController::class, 'store'])->name('favorite.store');
+    
+});
+// ********** Group for Compare Products routes with 'compare' prefix *************
+
+Route::group(['prefix' => 'compare'], function () {
+    // Route for displaying all blogs
+    Route::get('/', [CompareController::class, 'index'])->name('compare.index');
+    Route::post('store', [CompareController::class, 'store'])->name('compare.store');
     
 });
