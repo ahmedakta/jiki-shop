@@ -24,7 +24,7 @@
 					<ul class="main-categories">
 						@foreach ($categories as $category)
 							<li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable">
-								<span class="lnr lnr-arrow-right"></span>{{$category->category_name}}<span class="number">(53)</span></a>
+								<span class="lnr lnr-arrow-right" ng-click="getData('/products' , {category_id : {{$category->id}}})"></span>{{$category->category_name}}<span class="number">(53)</span></a>
 								<ul class="collapse" id="fruitsVegetable" data-toggle="collapse" aria-expanded="false" aria-controls="fruitsVegetable">
 									<li class="main-nav-list child"><a href="#">Frozen Fish<span class="number">(13)</span></a></li>
 									<li class="main-nav-list child"><a href="#">Dried Fish<span class="number">(09)</span></a></li>
@@ -135,7 +135,7 @@
 						<form action="#">
 							<ul>
 								@foreach ($brands as $brand)									
-									<li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">{{$brand->category_name}}<span>(29)</span></label></li>
+									<li class="filter-list"><input class="pixel-radio"  ng-click="getData('/products' , {brand_id : {{$brand->id}}})" type="radio" id="apple" name="brand"><label for="apple">{{$brand->category_name}}<span>(29)</span></label></li>
 								@endforeach
 							</ul>
 						</form>
@@ -145,7 +145,7 @@
 						<form action="#">
 							<ul>
 								@foreach ($colors as $color)
-									<li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">{{$color->category_name}}<span>(29)</span></label></li>
+									<li class="filter-list"><input class="pixel-radio" ng-click="getData('/products' , {color_id : {{$color->id}}})" type="radio" id="black" name="color"><label for="black">{{$color->category_name}}<span>(29)</span></label></li>
 								@endforeach
 							</ul>
 						</form>
@@ -191,7 +191,7 @@
                             <!-- single product -->
                             <div class="col-lg-4 col-md-6" ng-repeat="product in data.data">
                                 <div class="single-product">
-                                    <img class="img-fluid" src="{{asset('theme/img/product/p1.jpg')}}" alt="">
+									<img class="img-fluid" src="{{asset('theme/img/product/p1.jpg')}}" alt="">
                                     <div class="product-details">
 										<a ng-href="/products/@{{product.id}}">
 											<h6>@{{product.product_title}}</h6>

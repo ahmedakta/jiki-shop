@@ -496,6 +496,7 @@
                 });
             };
 
+
             // Get subtotal of the user cart products
             $scope.calculateTotal = function() {
                 var total = 0;

@@ -21,10 +21,21 @@ class Product extends Model
         'status',
     ];
    
-    // set category relationshp
+    // set category relationshp's
     public function category()
     {
-        return $this->belongsTo(Category::class , 'category_id');
+        return $this->belongsToMany(Category::class, 'product_categories')
+        ->where('parent_id' , '=' , 11);
+    }
+    public function brand()
+    {
+        return $this->belongsToMany(Category::class , 'product_categories' , 'product_id' , 'category_id')
+        ->where('parent_id' , '=' , 12);
+    }
+    public function color()
+    {
+        return $this->belongsToMany(Category::class, 'product_categories')
+        ->where('parent_id' , '=' , 13);
     }
     
     // Set offers relation

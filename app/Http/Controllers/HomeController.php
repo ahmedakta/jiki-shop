@@ -42,7 +42,7 @@ class HomeController extends Controller
         $features = convertJson(Category::where('parent_id' , '=' , 3)->get()->all());
 
         // *** Categories Section *** //
-        $categories = convertJson(Category::where('parent_id' , '=' , 1)->select('category_name' , 'category_configs')->get());
+        $categories = convertJson(Category::where('parent_id' , '=' , 11)->select('category_name' , 'category_configs')->get());
 
         // *** One Hot Offer *** //
 
