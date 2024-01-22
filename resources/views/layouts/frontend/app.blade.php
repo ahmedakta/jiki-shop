@@ -301,16 +301,18 @@
 		</div>
            <!--preview panel-->
             <div class="w3-container  w3-center" ng-show="compareProductsItems">
-                <div class="w3-row w3-card-4 w3-grey w3-round-large w3-border comparePanle w3-margin-top">
+                <div class="w3-card-4 w3-grey w3-round-large w3-border comparePanle w3-margin-top">
                     <div class="w3-row">
                         <div class="w3-col l9 m8 s6 w3-margin-top">
-                            <h4>{{__('Added for compression')}}</h4>
+                            <h4>@{{message}}</h4>
                         </div>
-                        <div class="w3-col l3 m4 s6 w3-margin-top">
+                        <div class="w3-col l3 m4 s6 w3-margin-top compareList">
                            <div class="product-cart" ng-repeat="product in compareProducts">
+                                <img class="img-fluid" width="70rem" src="{{asset('theme/img/product/p1.jpg')}}" alt="">
+                                <a href="" ng-click="postData('compare/store',product.id)">X</a>
                                 @{{product.product_title}}
                             </div>
-                            <button class="w3-btn w3-round-small w3-white w3-border notActive cmprBtn" ng-disabled="compareProductsItems < 2">Compare</button>
+                            <a class=" genric-btn info circle notActive cmprBtn" href="{{route('compare.index')}}" ng-disabled="compareProductsItems < 2" >{{__('Compare')}}</a>
                         </div>
                     </div>
                     <div class=" titleMargin w3-container comparePan">
@@ -431,14 +433,18 @@
         var app = angular.module('App', []);
         app.controller('AppController', function($scope, $http , $timeout) {
             $scope.data = jsonData;
+            $scope.message = null;
             $http.get('/cart').then(function(response) {
                 $scope.cart = response.data.data;
                 $scope.cartItems = Object.keys(response.data.data).length;
             });
             $http.get('/favorite').then(function(response) {
                 $scope.favorites = response.data.favorites;
-                console.log($scope.favorites);
                 $scope.favoritesItems = Object.keys(response.data.favorites).length;
+            });
+            $http.get('/compare').then(function(response) {
+                $scope.compareProducts = response.data.compareProducts; // TODO: we should use getData global function..
+                $scope.compareProductsItems = Object.keys(response.data.compareProducts).length;
             });
             // Get Data
             $scope.getData = function (url , params) {
@@ -486,6 +492,7 @@
                         {
                             $scope.compareProducts = response.data.compareProducts; // TODO: we should use getData global function..
                             $scope.compareProductsItems = Object.keys(response.data.compareProducts).length;
+                            $scope.message = response.data.message;
                         }
                     });
             };

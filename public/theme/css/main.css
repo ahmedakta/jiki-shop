@@ -5866,10 +5866,25 @@ label {
   align-items: center;
   text-align: center;
   width: 100%;
+  max-width: 100%;
   z-index: 3;
   justify-content: center;
   bottom: 0;
+  color: white;
+  height: 8rem;
   position: fixed;
+}
+
+.comparePanle h4{
+  color:white;
+}
+.compareList{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.product-cart{
+  width: 10rem;
 }
 /* End Of Compare Products Modal */
 /*# sourceMappingURL=main.css.map */

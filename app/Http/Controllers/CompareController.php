@@ -7,10 +7,15 @@ use App\Models\Product;
 
 class CompareController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
-
+        $compareProducts = $request->session()->get('compareProducts' , []);
+        if($request->expectsJson()){
+            $status = 'success';
+            return response()->json(['status' => $status , 'compareProducts' => $compareProducts]);
+        }
+        return view('frontend.compare');
     }
 
     // we just storing the compared products to the Session...
@@ -22,12 +27,8 @@ class CompareController extends Controller
            $product = Product::find($productId);
            $compareProducts = $request->session()->get('compareProducts' , []);
            // Check if the product is already in the compared products
-           if(count($compareProducts) < 3)
-           {
-            $status = 'error';
-           return response()->json(['status' => $status , 'compareProducts' => null]);
-           }
-           if (isset($product) && !isset($compareProducts[$product->id])) {
+
+           if (isset($product) && !isset($compareProducts[$product->id]) && count($compareProducts) < 3) {
                $compareProducts[$product->id] =
                [
                    'id' => $product->id,
@@ -35,23 +36,19 @@ class CompareController extends Controller
                    'product_price' => $product->product_price,
                    'product_photos' => $product->product_photos,
                ];
-               $status = 'success';
+               $status = __('success');
+               $message = __('Added For Comparison');
+           }elseif(count($compareProducts) == 3 && !isset($compareProducts[$product->id])){ // if count of compareProdcuts 3 and we trying to add more
+            $status = 'error';
+            $message =  __('You Cannot Compare More Then 3 Products !');
+            return response()->json(['status' => $status , 'message'=> $message ,'compareProducts' => $compareProducts]);
            }else{
-               $status = 'deleted';
+               $status = __('success');
+                $message =  __('Deleted');
                unset($compareProducts[$product->id]);
            }
            $request->session()->put('compareProducts', $compareProducts);
-           return response()->json(['status' => $status , 'compareProducts' => $compareProducts]);
-    }
-
-    public function update()
-    {
-
-    }
-
-    public function destroy()
-    {
-
+           return response()->json(['status' => $status ,'message' => $message, 'compareProducts' => $compareProducts]);
     }
 }
 
