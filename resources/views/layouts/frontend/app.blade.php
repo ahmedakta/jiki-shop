@@ -113,7 +113,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="cart">
+                                <a href="{{route('favorites.index')}}" class="cart">
                                     <span class="ti-heart"></span>
                                     <span class="favorites-count">@{{favoritesItems}}</span>
                                 </a>

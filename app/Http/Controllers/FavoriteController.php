@@ -19,10 +19,9 @@ class FavoriteController extends Controller
          if (Auth::check()) {
             $userId = Auth::id();
             $user = User::find($userId);
-            $userCart = $user->favorites;
             $favorites = [];
-            foreach ($user->favorites as $key => $favorite) {
-                $favorites[$favorite->product_id] = $favorite;
+            foreach ($user->favoritedProducts as $key => $product) {
+                $favorites[$product->id] = $product;
             }
         } else {
             $favorites = $request->session()->get('favorites');
@@ -32,6 +31,7 @@ class FavoriteController extends Controller
         if($request->expectsJson()){
             return response()->json(['success' => true ,'favorites' => $favorites]);
         }
+        return view('frontend.favorites');
     }
     // store
     public function store(Request $request)
@@ -55,8 +55,8 @@ class FavoriteController extends Controller
                 //  TODO review this shit + review the angular js favorites & cart array****** IMPORTANT
                $user->load('favorites');
                $favorites = [];
-                foreach ($user->favorites as $key => $favorite) {
-                    $favorites[$favorite->product_id] = $favorite;
+                foreach ($user->favoritedProducts as $key => $favorite) {
+                    $favorites[$favorite->id] = $favorite;
                 }
            }else{ // If User not logged in we storing the product into Session
                $product = Product::find($productId);        

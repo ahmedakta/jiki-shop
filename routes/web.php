@@ -108,3 +108,5 @@ Route::group(['prefix' => 'compare'], function () {
     Route::post('store', [CompareController::class, 'store'])->name('compare.store');
     
 });
+
+Route::get('/favorites' , [FavoriteController::class , 'index'])->name('favorites.index');
