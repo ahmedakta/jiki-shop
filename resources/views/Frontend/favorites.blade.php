@@ -67,8 +67,10 @@
             >
             </posts-pagination>
 
-            <p ng-if="favoritesItems == 0"> Empty</p>
-
+                <div ng-if="favorites.length == 0" class="container empty-cart-conatiner">
+                    <img src="{{asset('/theme/img/no-favorites2.webp')}}" alt="">
+                    <p>{{__('Add some products to favorite list')}} <a href="{{route('products.index')}}">Now</a></p>
+                </div>
             <!-- End Filter Bar -->
         </div>
     </div>

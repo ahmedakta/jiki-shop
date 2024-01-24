@@ -63,7 +63,11 @@
                                     </td>
                                 </tr>
                             @guest
-                                <a href="{{route('register')}}">{{__('Register')}}</a> {{__('To Continue')}}
+                            <tr class="out_button_area">
+                                <td>
+                                    <a  href="{{route('register')}}">{{__('Register')}}</a> {{__('Or')}} <a href="{{route('login')}}">{{__('Login')}}</a> {{__('To Continue Order')}}
+                                </td>
+                            </tr>
                             @else
                                     <tr class="bottom_button">
                                         <td>
