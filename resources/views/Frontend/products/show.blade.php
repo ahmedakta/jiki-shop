@@ -225,19 +225,23 @@
 								@guest
 								<h4 class="text-center"><a href="{{route('login')}}">{{__('Login')}}</a><br>{{__('To Post A Comment..')}}</h4>
 								@else
-								<h4>Add a Review</h4>
-								<p>Your Rating:</p>
-								<ul class="list">
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-								</ul>
-								<p>Outstanding</p>
-								<h4 ng-if="replyToComment">{{__('Replying To')}} @{{replyToComment.user.name}}</h4>
+								<!-- Inspired by: https://codepen.io/jamesbarnett/pen/vlpkh -->
+								<h4 ng-if="replyToComment">{{__('Replying To')}} @{{replyToComment.user.name}}</h4> <br>
 									<h4 ng-if="!replyToComment">{{__('Post a comment')}}</h4>
 									<form ng-init="encryptedId = '{{ encrypt($product->id) }}'" ng-submit="postData('store/comment' , { encryptedId: encryptedId, type: 'comment', replyingCommentId: replyToComment.id })">
+										<div class="rating">
+											<input ng-model="formData.rating" type="radio" id="star5" value="5" />
+											<label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
+											<input ng-model="formData.rating"  type="radio" id="star4" value="4" />
+											<label class="star" for="star4" title="Great" aria-hidden="true"></label>
+											<input ng-model="formData.rating"  type="radio" id="star3" value="3" />
+											<label class="star" for="star3" title="Very good" aria-hidden="true"></label>
+											<input ng-model="formData.rating"  type="radio" id="star2" value="2" />
+											<label class="star" for="star2" title="Good" aria-hidden="true"></label>
+											<input ng-model="formData.rating"  type="radio" id="star1" value="1" />
+											<label class="star" for="star1" title="Bad" aria-hidden="true"></label>
+										</div>
+										<br>
 										<div class="col-md-12">
 											<div class="form-group">
 												<textarea rows="5" class="form-control" ng-model="formData.message" id="message" rows="1" placeholder="{{__('Your Comment..')}}"></textarea>

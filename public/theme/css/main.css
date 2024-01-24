@@ -5853,13 +5853,6 @@ label {
   color:red;
 }
 
-
-
-
-
-
-
-
 /* Compare Products Modal */
 .comparePanle{
   background:linear-gradient(90deg, #d2b770 0%, #ff6c00 100%) ;
@@ -5869,7 +5862,6 @@ label {
   max-width: 100%;
   z-index: 3;
   justify-content: center;
-  bottom: 0;
   color: white;
   height: 8rem;
   position: fixed;
@@ -5890,6 +5882,42 @@ label {
 /* Compare Products  */
 .compare-data{
   font-size: 1.5rem;
+}
+/* Product Star Review */
+
+.rating {
+  border: none;
+  float: left;
+}
+
+.rating > label {
+  color: #90A0A3;
+  float: right;
+}
+
+.rating > label:before {
+  margin: 5px;
+  font-size: 2em;
+  font-family: FontAwesome;
+  content: "\f005";
+  display: inline-block;
+}
+
+.rating > input {
+  display: none;
+}
+
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: #F79426;
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label {
+  color: #FECE31;
 }
 /* Bx iconas style */
 .bx-icon{

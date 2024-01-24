@@ -14,6 +14,7 @@ class Comment extends Model
         'product_id',
         'user_id',
         'comment_message',
+        'comment_rating',
     ];
 
     public function user()

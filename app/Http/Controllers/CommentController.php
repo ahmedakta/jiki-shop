@@ -37,6 +37,7 @@ class CommentController extends Controller
             'product_id' => $productId,
             'parent_id' => $data['replyedCommentId'] ?? Null,
             'comment_message' => $data['message'],
+            'comment_rating' => $data['rating'],
         ]);
         $comments  = Product::find($productId)->comments()->with(['user' , 'replies'])->get(); // todo select columns from the user for security
         if($request->expectsJson() && $comment){
