@@ -5887,4 +5887,18 @@ label {
   width: 10rem;
 }
 /* End Of Compare Products Modal */
+/* Compare Products  */
+.compare-data{
+  font-size: 1.5rem;
+}
+/* Bx iconas style */
+.bx-icon{
+  font-size: 1.5rem;
+}
+.bx.bx-check{
+  color: green;
+}
+.bx.bx-x{
+  color: red;
+}
 /*# sourceMappingURL=main.css.map */

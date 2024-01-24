@@ -16,8 +16,11 @@ class Product extends Model
         'product_desc',
         'product_price',
         'product_photos',
+        'product_stocks',
         'product_keywords',
         'product_cofigs',
+        'product_water_resistance',
+        'product_customization',
         'status',
     ];
    

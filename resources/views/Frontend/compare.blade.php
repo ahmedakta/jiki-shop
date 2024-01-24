@@ -20,28 +20,27 @@
 	<!--================Order Details Area =================-->
 	<section class="order_details section_gap">
 		<div class="container">
-			{{-- Delete --}}
-			<h3 class="title_confirmation"></h3> 
+			<h2 class="">Compairation Result</h2> 
 			<div class="row order_d_inner">
-				<div class="col-lg-2">
+				<div class="col-lg-4" ng-repeat="product in compareProducts">
 					<div class="details_item">
-						<h4>Order Info</h4>
+						<img class="img-fluid" src="{{asset('theme/img/product/p1.jpg')}}" alt="">
+						<h4>@{{product.product_title}}</h4>
 						<ul class="list">
-							<li><a href="#"><span>Order number</span></a></li>
-							<li><a href="#"><span>Date</span></a></li>
-							<li><a href="#"><span>Total</span></a></li>
-							<li><a href="#"><span>Payment method</span></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3" ng-repeat="product in compareProducts">
-					<div class="details_item">
-						<h4>Billing Address</h4>
-						<ul class="list">
-							<li><a href="#"><span>Street</span> : 56/8</a></li>
-							<li><a href="#"><span>City</span> : Los Angeles</a></li>
-							<li><a href="#"><span>Country</span> : United States</a></li>
-							<li><a href="#"><span>Postcode </span> : 36952</a></li>
+							<li><a class="compare-data" href="#"><span>{{__('Product Price')}}</span> : @{{product.product_price}}$</a></li>
+							<li>
+								<a class="compare-data" href="#"><span>{{__('Water Resistance')}}</span> : 
+									<i ng-if="product.product_water_resistance == 1" class='bx bx-check bx-tada bx-rotate-90 bx-icon' ></i>
+									<i ng-if="product.product_water_resistance != 1" class='bx bx-x bx-tada bx-rotate-90 bx-icon' ></i>
+								</a>
+							</li>
+							<li>
+								<a class="compare-data" href="#"><span>{{__('Custmization')}}</span> : 
+									<i ng-if="product.product_customization == 1" class='bx bx-check bx-tada bx-rotate-90 bx-icon' ></i>
+									<i ng-if="product.product_customization != 1" class='bx bx-x bx-tada bx-rotate-90 bx-icon' ></i>
+								</a>
+							</li>
+							<li><a class="compare-data" href="#"><span>Stocks</span> : @{{product.product_stocks}} </a></li>
 						</ul>
 					</div>
 				</div>

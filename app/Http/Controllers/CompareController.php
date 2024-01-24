@@ -34,6 +34,9 @@ class CompareController extends Controller
                    'id' => $product->id,
                    'product_title' => $product->product_title,
                    'product_price' => $product->product_price,
+                   'product_stocks' => $product->product_stocks,
+                   'product_customization' => $product->product_customization,
+                   'product_water_resistance' => $product->product_water_resistance,
                    'product_photos' => $product->product_photos,
                ];
                $status = __('success');

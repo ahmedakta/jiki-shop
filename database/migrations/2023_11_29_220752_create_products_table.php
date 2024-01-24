@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('product_introduction')->nullable();
             $table->longText('product_desc');
             $table->integer('product_price');
+            $table->boolean('product_water_resistance')->default(0);
+            $table->boolean('product_customization')->default(0);
             $table->string('product_photos')->nullable()->default('[{"name":"theme/img/banner/banner-product.png","isfeatured":"1"},{"name":"theme/img/banner/banner-img.png","isfeatured":"0"}]');
             $table->string('product_keywords')->nullable();
             $table->string('product_configs')->nullable();
