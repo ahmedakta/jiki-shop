@@ -1,26 +1,26 @@
 @extends('layouts.frontend.app')
 @section('content')
-	<!-- Start Banner Area -->
-	<section class="banner-area organic-breadcrumb">
-		<div class="container">
-			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-				<div class="col-first">
-					<h1>{{__('Favorites')}}</h1>
-					<nav class="d-flex align-items-center">
-						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-						<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
-						<a href="category.html">Fashon Category</a>
-					</nav>
-				</div>
-			</div>
-		</div>
-	</section>
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>{{__('Favorites')}}</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Fashon Category</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
 <div class="container">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12">
             <!-- End Filter Bar -->
             <!-- Start Best Seller -->
-            <section class="lattest-product-area pb-40 category-list">
+            <section class="lattest-product-area pb-40 category-list" >
                 <div class="row">
                         <!-- single product -->
                         <div class="col-lg-4 col-md-6" ng-repeat="product in favorites">
@@ -58,7 +58,7 @@
             </section>
             <!-- End Best Seller -->
             <!-- Start Filter Bar -->
-            <posts-pagination
+            <posts-pagination ng-if="favoritesItems"
             current-page="data.current_page" 
             total-pages="data.last_page" 
             items-per-page="data.per_page"
@@ -66,6 +66,8 @@
             data="data"
             >
             </posts-pagination>
+
+            <p ng-if="favoritesItems == 0"> Empty</p>
 
             <!-- End Filter Bar -->
         </div>
