@@ -30,7 +30,6 @@ class AppServiceProvider extends ServiceProvider
         // Mail , social media , addresses etc....
 
 
-        // *** User Basket Information
         View::creator('*', function ($view) {
             $view->with('user', auth()->user());
         });

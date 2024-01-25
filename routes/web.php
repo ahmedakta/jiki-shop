@@ -112,6 +112,7 @@ Route::group(['prefix' => 'compare'], function () {
 
 Route::get('/favorites' , [FavoriteController::class , 'index'])->name('favorites.index');
 Route::get('/profile/edit' , [ProfileController::class , 'edit'])->name('profile.edit');
+Route::post('/profile/update' , [ProfileController::class , 'update'])->name('profile.update');
 
 
 
