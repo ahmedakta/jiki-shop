@@ -65,7 +65,7 @@
                                 <a href="{{route('products.index')}}" class="nav-link">{{__('Shop')}}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{__('Blogs')}}</a>
+                                <a href="{{route('blogs.index')}}" class="nav-link">{{__('Blogs')}}</a>
                             </li>
                             <li class="nav-item  {{Route::currentRouteName() == 'pages.contact' ? 'active' : '' }}"><a class="nav-link" href="{{route('pages.contact')}}">{{__('Contact')}}</a></li>
                             @guest

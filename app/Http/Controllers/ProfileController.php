@@ -15,4 +15,11 @@ class ProfileController extends Controller
     {
         return view('frontend.profile');
     }
+
+
+
+    public function edit()
+    {
+        return view('frontend.edit_profile');
+    }
 }

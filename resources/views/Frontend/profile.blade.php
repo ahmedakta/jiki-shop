@@ -39,7 +39,7 @@
                             <img src="{{asset('theme/img/banner/banner-bg.jpg')}}" alt="post">
                             <div class="categories_details">
                                 <div class="categories_text">
-                                    <a href="blog-details.html">
+                                    <a href="{{route('profile.edit')}}">
                                         <h5>{{__('Login Information')}}</h5>
                                     </a>
                                     <div class="border_line"></div>

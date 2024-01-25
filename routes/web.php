@@ -9,6 +9,7 @@ use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompareController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,3 +111,9 @@ Route::group(['prefix' => 'compare'], function () {
 });
 
 Route::get('/favorites' , [FavoriteController::class , 'index'])->name('favorites.index');
+Route::get('/profile/edit' , [ProfileController::class , 'edit'])->name('profile.edit');
+
+
+
+// ******** BLOGS ************
+Route::get('/blog' , [BlogController::class , 'index'])->name('blogs.index');
