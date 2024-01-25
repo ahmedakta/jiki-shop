@@ -5860,7 +5860,7 @@ label {
   text-align: center;
   width: 100%;
   max-width: 100%;
-  z-index: 3;
+  z-index: 999;
   justify-content: center;
   color: white;
   height: 8rem;

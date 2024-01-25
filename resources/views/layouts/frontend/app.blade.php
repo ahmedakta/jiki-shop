@@ -561,6 +561,15 @@
             $scope.replyToUser = function(comment){
                 $scope.replyToComment = comment;
             };
+            $scope.getRating = function(rating){
+                var stars = [];
+                for (var i = 0; i < rating; i++) {
+                    stars.push(i);
+                }
+                return stars;
+            };
+
+
 
         });
         app.directive('postsPagination', function($http){  

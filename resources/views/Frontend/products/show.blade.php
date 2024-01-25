@@ -190,11 +190,7 @@
 											</div>
 											<div class="media-body">
 												<h4>@{{comment.user.name}}</h4>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
+												<i class="fa fa-star" ng-repeat="rating in getRating(comment.comment_rating)"></i>
 												<a class="reply_btn" ng-class="{'primary-btn': replyToComment.id == comment.id}" ng-click="!replyToComment || replyToComment.id != comment.id ? replyToUser(comment) : replyToUser('')" ng-if="comment.user.id != {{isset($user) ? $user->id : null}}">{{__('Reply')}}</a>
 												<a class="delete_reply_btn genric-btn primary-border small" ng-if="comment.user.id == {{isset($user) ? $user->id : null}}" ng-click="deleteData('comments/'+ {{($product->id)}} + '/' + comment.id + '/delete')"><span class="ti-trash"></span></a>
 											</div>
@@ -229,7 +225,7 @@
 								<h4 ng-if="replyToComment">{{__('Replying To')}} @{{replyToComment.user.name}}</h4> <br>
 									<h4 ng-if="!replyToComment">{{__('Post a comment')}}</h4>
 									<form ng-init="encryptedId = '{{ encrypt($product->id) }}'" ng-submit="postData('store/comment' , { encryptedId: encryptedId, type: 'comment', replyingCommentId: replyToComment.id })">
-										<div class="rating">
+										<div class="rating" ng-show="!replyToComment">
 											<input ng-model="formData.rating" type="radio" id="star5" value="5" />
 											<label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
 											<input ng-model="formData.rating"  type="radio" id="star4" value="4" />

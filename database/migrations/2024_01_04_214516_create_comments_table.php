@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('user_email')->nullable();
             $table->string('user_phone')->nullable();
             $table->string('comment_message');
-            $table->integer('comment_rating')->default(0);
+            $table->integer('comment_rating')->default(0)->nullable();
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('comments')->onDelete('cascade');
