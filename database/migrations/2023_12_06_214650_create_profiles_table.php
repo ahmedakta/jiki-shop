@@ -15,16 +15,16 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedBigInteger('user_id');
             $table->string('profile_phone');
-            $table->string('profile_photo');
-            $table->string('profile_bio');
-            $table->string('profile_country');
-            $table->string('profile_city');
-            $table->string('profile_address_1');
-            $table->string('profile_address_2');
-            $table->string('profile_address_3');
+            $table->string('profile_photo')->nullable();
+            $table->string('profile_bio')->nullable();
+            $table->string('profile_country')->nullable();
+            $table->string('profile_city')->nullable();
+            $table->string('profile_address_1')->nullable();
+            $table->string('profile_address_2')->nullable();
+            $table->string('profile_address_3')->nullable();
             $table->boolean('profile_emailme');
-            $table->integer('profile_newsltter')->comment('Newsltter subsrcription');
-            $table->integer('profile_zip_code');
+            $table->integer('profile_newsletter')->comment('Newsltter subsrcription');
+            $table->integer('profile_zip_code')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

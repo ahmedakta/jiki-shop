@@ -14,11 +14,12 @@ class Profile extends Model
         'profile_bio',
         'profile_country',
         'profile_city',
+        'profile_phone',
         'profile_address_1',
         'profile_address_2',
         'profile_address_3',
         'profile_emailme',
-        'profile_newsltter',
+        'profile_newsletter',
         'profile_zip_code',
     ];
 

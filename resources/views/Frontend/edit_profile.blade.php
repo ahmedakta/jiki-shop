@@ -15,7 +15,11 @@
         </div>
     </section>
     <!-- End Banner Area -->
-
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
     <!--================Checkout Area =================-->
     <section class="checkout_area section_gap">
         <div class="container">
@@ -56,14 +60,14 @@
                             </div>
                             <div class="col-md-4 form-group ">
                                 <label for="email">{{__('Email')}}</label>
-                                <input type="text" value="{{$user->email}}" class="form-control" id="email" name="compemailany" placeholder="Email">
+                                <input type="text" value="{{$user->email}}" class="form-control" id="email" name="email" placeholder="Email">
                             </div>
                             <div class="col-md-4 form-group">
                                 <label for="number">{{__('Phone Number')}}</label>
-                                <input type="text" value="{{$user->profile->profile_phone}}" class="form-control" id="number" name="number" placeholder="Phone Number">
+                                <input type="text" value="{{$user->profile->profile_phone}}" class="form-control" id="number" name="profile_phone" placeholder="Phone Number">
                             </div>
-                            <div class="col-md-6 form-group p_star" >
-                                <select class="country_select" name="profile_country"  style="overflow-y:auto;height:25%">
+                            <div class="col-md-6 form-group p_star">
+                                <select class="country_select" name="profile_country" size="10">
                                     <option value="Afghanistan">Afghanistan</option>
                                     <option value="Albania">Albania</option>
                                     <option value="Algeria">Algeria</option>
@@ -315,19 +319,19 @@
                             <div class="col-md-6 form-group">
                                 <p>{{__('Newsletter')}}</p>
                                 <div class="primary-switch">
-                                    <input type="checkbox" id="primary-switch-newsletter" name="profile_newsltter" checked>
+                                    <input type="checkbox" id="primary-switch-newsletter" name="profile_newsletter"  {{$user->profile->profile_newsletter ? 'checked' : ''}}>
 									<label for="primary-switch-newsletter"></label>
 								</div>
 							</div>
                             <div class="col-md-6 form-group">
                                 <p>{{__('Email Me')}}</p>
                                 <div class="primary-switch">
-                                    <input type="checkbox" id="primary-switch-emailme" name="profile_emailme" checked>
+                                    <input type="checkbox" id="primary-switch-emailme" name="profile_emailme" {{$user->profile->profile_emailme ? 'checked' : ''}}>
 									<label for="primary-switch-emailme"></label>
 								</div>
 							</div>
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="zip" name="profile_zip_code" placeholder="Postcode/ZIP">
+                                <input type="text" class="form-control" value="{{$user->profile->profile_zip_code}}" id="zip" name="profile_zip_code" placeholder="Postcode/ZIP">
                             </div>
                             <div class="col-md-12 form-group">
                                 <button type="submit" class="genric-btn info radius">{{__('update')}}</button>
