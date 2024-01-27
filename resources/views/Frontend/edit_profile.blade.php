@@ -50,7 +50,7 @@
                         <form class="row contact_form" action="{{route('profile.update')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="col-md-12 p-3">
-                                <img class="author_img rounded-circle" src="{{asset('theme/img/blog/author.png')}}" alt="">
+                                <img class="author_img rounded-circle" width="100rem" height="100rem" src="{{asset('storage/users/profiles/'.$user->profile->profile_photo) }}" alt="">
                                 <input type="file" name="profile_photo" id="profile_photo">
                             </div>
                             <div class="br"></div>

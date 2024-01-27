@@ -24,6 +24,9 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$12$R5BH3mRKYOKr3RUhpoZ/1.tzsYrtvdQSRUooZqObEuf7YbrM849a2', //asdasdasd
             'role' => 1, //asdasdasd
         ]);
+        \App\Models\Profile::create([
+            'user_id' => 1,
+        ]);
         // Fixed Main Categories
         // 1 - Products 
             // - Category
