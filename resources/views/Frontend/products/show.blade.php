@@ -72,7 +72,7 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" ng-click="getData('{{encrypt($product->id)}}/comments')" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-								aria-selected="false">Reviews </a> 
+								aria-selected="false">Reviews</a> 
 				</li>
 			</ul>
 			
@@ -186,7 +186,7 @@
 									<div class="review_item" ng-if="data.length" ng-repeat="comment in data">
 										<div class="media">
 											<div class="d-flex">
-												<img src="{{asset('theme/img/product/review-1.png')}}" alt="">
+												<img src="{{asset('storage/users/profiles')}}/@{{comment.user.profile.profile_photo}}"  width="75rem" alt="">
 											</div>
 											<div class="media-body">
 												<h4>@{{comment.user.name}}</h4>
@@ -199,7 +199,7 @@
 										<div class="review_item reply" ng-if="comment.replies.length" ng-repeat="reply in comment.replies">
 											<div class="media">
 												<div class="d-flex">
-													<img src="{{asset('theme/img/product/review-2.png')}}" alt="">
+													<img src="{{asset('storage/users/profiles')}}/@{{reply.user.profile.profile_photo}}" width="55rem" alt="">
 												</div>
 												<div class="media-body">
 													<h4>@{{reply.user.name}}</h4>
@@ -224,7 +224,7 @@
 								<!-- Inspired by: https://codepen.io/jamesbarnett/pen/vlpkh -->
 								<h4 ng-if="replyToComment">{{__('Replying To')}} @{{replyToComment.user.name}}</h4> <br>
 									<h4 ng-if="!replyToComment">{{__('Post a comment')}}</h4>
-									<form ng-init="encryptedId = '{{ encrypt($product->id) }}'" ng-submit="postData('store/comment' , { encryptedId: encryptedId, type: 'comment', replyingCommentId: replyToComment.id })">
+									<form ng-init="encryptedId = '{{ encrypt($product->id) }}' ; productId  = '{{$product->id}}'" ng-submit="postData('store/comment' , { encryptedId: encryptedId, productId : productId ,type: 'comment', replyingCommentId: replyToComment.id })">
 										<div class="rating" ng-show="!replyToComment">
 											<input ng-model="formData.rating" type="radio" id="star5" value="5" />
 											<label class="star" for="star5" title="Awesome" aria-hidden="true"></label>

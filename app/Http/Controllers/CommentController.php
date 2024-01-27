@@ -18,7 +18,7 @@ class CommentController extends Controller
         {
             return response()->json(['success' => false ,'data' => null]);
         }
-        $comments  = Product::find($productId)->comments()->with(['user' , 'replies.user'])->get(); // todo select columngs from the user for security
+        $comments  = Product::find($productId)->comments()->with(['user.profile' , 'replies.user.profile'])->get(); // todo select columngs from the user for security
         $comments = convertJson($comments);
         if($request->expectsJson()){
             return response()->json(['success' => true ,'data' => $comments]);
@@ -39,7 +39,7 @@ class CommentController extends Controller
             'comment_message' => $data['message'],
             'comment_rating' => $data['rating'] ?? null,
         ]);
-        $comments  = Product::find($productId)->comments()->with(['user' , 'replies'])->get(); // todo select columns from the user for security
+        $comments  = Product::find($productId)->comments()->with(['user.profile','replies.user.profile'])->get(); // todo select columns from the user for security
         if($request->expectsJson() && $comment){
             return response()->json(['success' => true ,'data' => $comments]);
         }
@@ -55,7 +55,7 @@ class CommentController extends Controller
         }
         $post->delete();
 
-        $comments  = Product::find($productId)->comments()->with(['user' , 'replies.user'])->get(); // todo select columngs from the user for security
+        $comments  = Product::find($productId)->comments()->with(['user.profile' , 'replies.user.profile'])->get(); // todo select columngs from the user for security
         $comments = convertJson($comments);
         
         return response()->json(['success' => true, 'message' => 'Post deleted successfully' , 'data' => $comments]);

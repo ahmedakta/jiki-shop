@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedBigInteger('user_id');
             $table->string('profile_phone')->nullable();
-            $table->string('profile_photo')->nullable();
+            $table->string('profile_photo')->default('default_profile.png')->nullable();
             $table->string('profile_bio')->nullable();
             $table->string('profile_country')->nullable();
             $table->string('profile_city')->nullable();

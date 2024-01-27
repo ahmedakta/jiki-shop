@@ -130,7 +130,7 @@
                                                     <option value="2">Select a State</option>
                                                     <option value="4">Select a State</option>
                                                 </select>
-                                                <input type="text" placeholder="Postcode/Zipcode">
+                                                <input type="text" value="{{$user->profile->profile_zip_code}}" placeholder="Postcode/Zipcode">
                                                 <a class="gray_btn" href="#">Update Details</a>
                                             </div>
                                         </td>

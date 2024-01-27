@@ -333,8 +333,11 @@
                             <div class="col-md-12 form-group">
                                 <input type="text" class="form-control" value="{{$user->profile->profile_zip_code}}" id="zip" name="profile_zip_code" placeholder="Postcode/ZIP">
                             </div>
-                            <div class="col-md-12 form-group">
+                            <div class="form-group">
                                 <button type="submit" class="genric-btn info radius">{{__('update')}}</button>
+                            </div>
+                            <div class="form-group">
+                                <a href="{{route('profile.change.password')}}" class="genric-btn info-border">{{__('change password')}}</a>
                             </div>
                         </form>
                     </div>
