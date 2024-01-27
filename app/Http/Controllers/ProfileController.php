@@ -86,4 +86,32 @@ class ProfileController extends Controller
     {
         return view('frontend.change_password');
     }
+
+    
+    public function getUserPaymentCards(Request $request)
+    {
+        // User Information
+        // Addresses
+        $user = Auth::user();
+
+        $paymentCards = $user->paymentCards;
+        $paymentCards = convertJson($paymentCards);
+        // Check requset
+        if($request->expectsJson()){
+            return response()->json(['success' => true ,'data' => $paymentCards]);
+        }
+        return view('frontend.products.checkout' , compact('addresses'));
+    }
+
+    // User Payments
+    public function payments()
+    {
+        return view('frontend.user_payments');
+    }
+
+    // User Addresses
+    public function addresses()
+    {
+        return view('frontend.user_addresses');
+    }
 }

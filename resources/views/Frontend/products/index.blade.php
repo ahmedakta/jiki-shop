@@ -186,8 +186,8 @@
 				</div>
 				<!-- End Filter Bar -->
 				<!-- Start Best Seller -->
-				<section class="lattest-product-area pb-40 category-list">
-					<div class="row">
+				<section class="lattest-product-area pb-40 category-list ">
+					<div class="row ">
                             <!-- single product -->
                             <div class="col-lg-4 col-md-6" ng-repeat="product in data.data">
                                 <div class="single-product">

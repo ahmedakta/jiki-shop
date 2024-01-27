@@ -25,7 +25,7 @@
                             <img src="{{asset('theme/img/banner/banner-bg.jpg')}}" alt="post">
                             <div class="categories_details">
                                 <div class="categories_text">
-                                    <a href="blog-details.html">
+                                    <a href="{{route('profile.payments')}}">
                                         <h5>{{__('Payments')}}</h5>
                                     </a>
                                     <div class="border_line"></div>
@@ -53,7 +53,7 @@
                             <img src="{{asset('theme/img/banner/banner-bg.jpg')}}" alt="post">
                             <div class="categories_details">
                                 <div class="categories_text">
-                                    <a href="blog-details.html">
+                                    <a href="{{route('profile.addresses')}}">
                                         <h5>{{__('Addresses')}}</h5>
                                     </a>
                                     <div class="border_line"></div>

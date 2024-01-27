@@ -16,8 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id'); // Foreign key to associate with a user
             $table->string('card_number'); // You may want to use a more secure data type or consider encryption
             $table->string('card_holder_name');
-            $table->string('expiration_date');
-            $table->string('cvv'); // Card Verification Value
+            $table->string('card_expiration_date');
+            $table->string('card_cvv'); // Card Verification Value
+            $table->boolean('isdefault')->default(0)->nullable(); // Card Verification Value
+            $table->integer('status'); // Card Verification Value
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

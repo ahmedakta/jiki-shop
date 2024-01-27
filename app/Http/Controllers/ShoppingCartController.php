@@ -124,4 +124,16 @@ class ShoppingCartController extends Controller
         }
         return response()->json(['status' => $status , 'data' => $cart]);
     }
+
+    public function checkout()
+    {
+        // User Information
+        // Addresses
+        $user = Auth::user();
+        $addresses = [];
+        array_push( $addresses , $user->profile->profile_address_1);
+        array_push( $addresses , $user->profile->profile_address_2);
+        array_push( $addresses , $user->profile->profile_address_3);
+        return view('frontend.products.checkout' , compact('addresses'));
+    }
 }

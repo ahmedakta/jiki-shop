@@ -547,6 +547,7 @@
                 angular.forEach($scope.cart, function(product) {
                     total += parseInt(product.total, 10);
                 });
+                $scope.total = total;
                return total;
             };
              // Function to check if a product is in the cart

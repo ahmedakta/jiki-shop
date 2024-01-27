@@ -43,6 +43,7 @@ Route::group(['prefix' => 'user'], function () {
     // Route for user profile
     Route::get('profile', [ProfileController::class, 'index'])->name('user.profile');
     Route::get('profile/edit', [ProfileController::class, 'index'])->name('user.profile.edit');
+    Route::get('profile/paymentCards', [ProfileController::class, 'getUserPaymentCards'])->name('user.profile.paymentCards');
     // Profile Sections
     Route::get('orders', [ProfileController::class, 'index'])->name('user.orders');
     Route::get('payments', [ProfileController::class, 'index'])->name('user.payments');
@@ -87,10 +88,16 @@ Route::group(['prefix' => 'cart'], function () {
     Route::get('/', [ShoppingCartController::class, 'index'])->name('cart.index');
     Route::post('store', [ShoppingCartController::class, 'store'])->name('cart.store');
     Route::post('product/quantity', [ShoppingCartController::class, 'update'])->name('cart.update');
+
+    Route::get('/checkout' , [ShoppingCartController::class , 'checkout'])->name('cart.checkout')->middleware('auth');
     
     // Route for displaying a specific blog
     Route::get('{id}', [PageController::class, 'show'])->name('blog.show');
     // Add more blog-related routes here
+
+    // TODO : DELETE THESE
+    Route::get('user/profile/paymentCards', [ProfileController::class, 'getUserPaymentCards'])->name('user.profile.paymentCards');
+
 });
 
 // ********** Group for favorites routes with 'favorite' prefix *************
@@ -112,6 +119,8 @@ Route::group(['prefix' => 'compare'], function () {
 
 Route::get('/favorites' , [FavoriteController::class , 'index'])->name('favorites.index');
 Route::get('/profile/edit' , [ProfileController::class , 'edit'])->name('profile.edit');
+Route::get('/profile/payments' , [ProfileController::class , 'payments'])->name('profile.payments');
+Route::get('/profile/addresses' , [ProfileController::class , 'addresses'])->name('profile.addresses');
 Route::get('/profile/change-password' , [ProfileController::class , 'changePassword'])->name('profile.change.password');
 Route::post('/profile/update' , [ProfileController::class , 'update'])->name('profile.update');
 

@@ -26,6 +26,9 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\Profile::create([
             'user_id' => 1,
+            'profile_address_1' => 'Test Test 1',
+            'profile_address_2' => 'Test Test 2',
+            'profile_address_3' => 'Test Test 3',
         ]);
         // Fixed Main Categories
         // 1 - Products 
@@ -35,6 +38,17 @@ class DatabaseSeeder extends Seeder
         // 2 - Pages 
         // 3 - Offers 
 
+
+        // Payment
+        \App\Models\PaymentCard::create([
+            'user_id' => 1,
+            'card_number' => 4012888888881881,
+            'card_holder_name' => 'Mr Jackson',
+            'card_expiration_date' => '27.03.2029',
+            'card_cvv' => 352, 
+            'isdefault' => 0, 
+            'status' => 1, 
+        ]);
         // For Products
         \App\Models\Category::factory()->create([
             'language_id' => 0,

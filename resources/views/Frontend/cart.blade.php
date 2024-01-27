@@ -80,6 +80,9 @@
 
                                         </td>
                                         <td>
+
+                                        </td>
+                                        <td>
                                             <div class="cupon_text d-flex align-items-center">
                                                 <input type="text" placeholder="Coupon Code">
                                                 <a class="primary-btn" href="#">Apply</a>
@@ -88,6 +91,9 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td>
+
+                                        </td>
                                         <td>
 
                                         </td>
@@ -109,29 +115,17 @@
 
                                         </td>
                                         <td>
+
+                                        </td>
+                                        <td>
                                             <h5>Shipping</h5>
                                         </td>
                                         <td>
                                             <div class="shipping_box">
                                                 <ul class="list">
-                                                    <li><a href="#">Flat Rate: $5.00</a></li>
-                                                    <li><a href="#">Free Shipping</a></li>
-                                                    <li><a href="#">Flat Rate: $10.00</a></li>
-                                                    <li class="active"><a href="#">Local Delivery: $2.00</a></li>
+                                                    <li ng-if="total < 1000"><a>Flat Rate: $5.00</a></li>
+                                                    <li ng-if="total > 1000"><a>Free Shipping</a></li>
                                                 </ul>
-                                                <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
-                                                <select class="shipping_select">
-                                                    <option value="1">Bangladesh</option>
-                                                    <option value="2">India</option>
-                                                    <option value="4">Pakistan</option>
-                                                </select>
-                                                <select class="shipping_select">
-                                                    <option value="1">Select a State</option>
-                                                    <option value="2">Select a State</option>
-                                                    <option value="4">Select a State</option>
-                                                </select>
-                                                <input type="text" value="{{$user->profile->profile_zip_code}}" placeholder="Postcode/Zipcode">
-                                                <a class="gray_btn" href="#">Update Details</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -146,10 +140,11 @@
 
                                         </td>
                                         <td>
-                                            <div class="checkout_btn_inner d-flex align-items-center">
-                                                <a class="gray_btn" href="#">Continue</a>
-                                                <a class="primary-btn" href="#">Proceed to checkout</a>
-                                            </div>
+
+                                        </td>
+
+                                        <td>
+                                            <a class="btn btn-warning" href="{{route('cart.checkout')}}">Proceed to checkout</a>
                                         </td>
                                     </tr>
                             @endguest
