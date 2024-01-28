@@ -91,9 +91,9 @@
                             <div class="card">
                               <div class="card-header" id="headingOne">
                                 <h5 class="mb-0">
-                                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                  <a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     {{__('Shipping Address')}}
-                                  </button>
+                                  </a>
                                 </h5>
                               </div>
 
@@ -105,7 +105,7 @@
                                         @foreach ($addresses as $key => $address)
                                             <li class="list-group-item">
                                                 <div class="radion_btn">
-                                                    <input type="radio" id="f-option-address-{{$key}}" name="selector">
+                                                    <input ng-model="formData.order_address" type="radio" value="{{$address}}" id="f-option-address-{{$key}}" name="selector">
                                                     <label for="f-option-address-{{$key}}">{{$address}}</label>
                                                     <div class="check"></div>
                                                 </div>
@@ -119,9 +119,9 @@
                             <div class="card">
                               <div class="card-header" id="headingTwo">
                                 <h5 class="mb-0">
-                                  <button ng-click="getData('user/profile/paymentCards')" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                  <a ng-click="getData('user/profile/paymentCards')" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     {{__('Payment Method')}}
-                                  </button>
+                                  </a>
                                 </h5>
                               </div>
                               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
@@ -139,7 +139,7 @@
                                                 <tr ng-repeat="card in (dataLoading ? [1] : data)">
                                                     <td ng-class="{'loading': dataLoading }">
                                                         <div class="radion_btn">
-                                                            <input ng-if="!dataLoading" type="radio" id="f-option-payment-@{{card.id}}" name="selector">
+                                                            <input ng-if="!dataLoading" ng-model="formData.order_payment" type="radio" id="f-option-payment-@{{card.id}}" ng-value="card.id" name="order_payment">
                                                             <img ng-if="!dataLoading"  ng-class="{'loading': dataLoading }" src="{{asset('theme/img/credit_card.png')}}" width="30rem" alt="">
                                                             <label ng-if="!dataLoading" ng-class="{'loading': dataLoading }" for="f-option-payment-@{{card.id}}">Garanti Credit Card</label>
                                                             <div ng-if="!dataLoading" class="check"></div>
@@ -160,9 +160,9 @@
                             <div class="card">
                               <div class="card-header" id="headingThree">
                                 <h5 class="mb-0">
-                                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                  <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                     {{__('Review Items And Shipping')}}
-                                  </button>
+                                  </a>
                                 </h5>
                               </div>
                               <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
@@ -171,31 +171,10 @@
                                         <div  class="col-lg-12">
                                             <blockquote class="generic-blockquote">
                                                 <h6>{{__('Want to save a time on your next order and go directly to this step when checking out? ')}} </h6>
-                                                <input id="default_checkbox" type="checkbox" id="default_checkbox" name="selector">
+                                                <input ng-model="formData.set_default" id="default_checkbox" type="checkbox" name="set_default">
                                                 <label for="default_checkbox">{{__('Default to this delivery address and payment method.')}}</label>
                                             </blockquote>
                                         </div>
-                                        {{-- Card Items --}}
-                                        {{-- <div class="table-responsive">
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr ng-repeat="item in cart">
-                                                        <td>
-                                                            <div class="d-flex" ng-repeat="photo in item.product_photos">
-                                                                <img width="100rem" ng-if="photo.isfeatured == 1" src="/@{{photo.name}}" alt="">
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <h4>@{{item.product_title}}</h4>
-                                                            @{{item.product_price}}
-                                                        </td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div> --}}
                                         <div class="row">
                                             <div  class="col-md-6">
                                                 <div class="single-defination d-flex p-1" ng-repeat="item in cart">
@@ -210,13 +189,13 @@
                                                 <div class="single-defination">
                                                     <h4 class="mb-20">{{__('Choose a delivery option:')}}</h4>
                                                     <div class="radion_btn">
-                                                        <input type="radio" id="f-option-delivery-1" name="selector">
+                                                        <input ng-model="formData.delivery_monday" type="radio" value="delivery_monday" id="f-option-delivery-1" name="delivery_monday">
                                                         <label for="f-option-delivery-1"><b>Monday , Feb 12</b></label>
                                                         <p>$45.94 - AmazonGlobal Priority Shipping</p>
                                                         <div class="check"></div>
                                                     </div>
                                                     <div class="radion_btn">
-                                                        <input type="radio" id="f-option-delivery-2" name="selector">
+                                                        <input ng-model="formData.delivery_sunday" type="radio" id="f-option-delivery-2" value="delivery_sunday" name="delivery_sunday">
                                                         <label for="f-option-delivery-2"><b>Sat , Feb 13</b></label>
                                                         <p>$12.34 - AmazonGlobal Priority Shipping</p>
                                                         <div class="check"></div>
@@ -229,7 +208,7 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
+                        </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="order_box">
@@ -250,7 +229,7 @@
                                     How are shipping costs calculated?
                                     Why didn't I qualify for free shipping?</label>
                             </div>
-                            <a class="primary-btn" href="#">Proceed to Paypal</a>
+                            <a class="primary-btn" ng-click="postData('order/store' , { formData : formData ,type: 'order'})" type="submit">Proceed to Paypal</a>
                             <div class="payment_item active">
                                 <p>By placing your order, you agree to Amazon's privacy notice and conditions of use.
                                     You also agree to AmazonGlobal's terms and conditions.</p>

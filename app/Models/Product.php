@@ -59,4 +59,11 @@ class Product extends Model
         return $this->hasMany(Comment::class)->where('parent_id', null);
     }
 
+
+    // Product has many orders
+    public function orders()
+    {
+        return $this->hasMany(Order::class , 'order_products' , 'product_id' , 'order_id');
+    }
+
 }

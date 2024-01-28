@@ -78,4 +78,10 @@ class User extends Authenticatable
      {
          return $this->belongsToMany(Product::class , 'favorites' , 'user_id' , 'product_id');
      }
+
+    //  user Orders
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class , 'order_products' , 'user_id');
+    }
 }

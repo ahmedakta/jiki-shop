@@ -476,9 +476,21 @@
                     $scope.formData.replyedCommentId = params.replyingCommentId;
                     params = $scope.formData;
                 }
+                if(params.type == 'order')
+                {
+                    $scope.formData.order_total_amount = $scope.calculateTotal();
+                    $scope.formData.orderd_products = $scope.cart;
+                    params = $scope.formData;
+                }
                 $http.post(url, params)
                     .then(function (response) {
+                        // Stop Data loading
                         $scope.dataLoading = false;
+                        // Check If there is redirect after ajax post
+                        if(response.data.redirect){
+                            window.location.href = response.data.redirect;
+                        }
+                        // Update data depends on returned data.
                         if(response.data.data) // if we are returning data in json , update the data. 
                         {
                             $scope.data = response.data.data;

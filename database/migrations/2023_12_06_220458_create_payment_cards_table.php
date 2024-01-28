@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payment_cards', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->unsignedBigInteger('user_id'); // Foreign key to associate with a user
             $table->string('card_number'); // You may want to use a more secure data type or consider encryption
             $table->string('card_holder_name');

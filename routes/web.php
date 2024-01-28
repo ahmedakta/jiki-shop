@@ -10,6 +10,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompareController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,9 +79,11 @@ Route::group(['prefix' => 'products'], function () {
     
     Route::post('store/comment' , [CommentController::class , 'store'])->name('comments.store');
 });
+    // TODO : DELETE THESE
 
+Route::post('cart/order/store' , [OrderController::class , 'store'])->name('order.store');
 
-
+Route::get('/checkout/confirmation' , [OrderController::class , 'confirmation'])->name('order.confirmation')->middleware('auth');
 
 // ********** Group for basket-related routes with 'cart' prefix *************
 Route::group(['prefix' => 'cart'], function () {

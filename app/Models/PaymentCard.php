@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentCard extends Model
 {
     use HasFactory;
+    protected $table ='payment_cards';
     protected $fillable = [
         'user_id',
         'card_number',
