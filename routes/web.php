@@ -11,6 +11,7 @@ use App\Http\Controllers\CompareController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentCardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -122,7 +123,8 @@ Route::group(['prefix' => 'compare'], function () {
 
 Route::get('/favorites' , [FavoriteController::class , 'index'])->name('favorites.index');
 Route::get('/profile/edit' , [ProfileController::class , 'edit'])->name('profile.edit');
-Route::get('/profile/payments' , [ProfileController::class , 'payments'])->name('profile.payments');
+Route::get('/profile/payments' , [ProfileController::class , 'getUserPaymentCards'])->name('profile.payments');
+Route::post('profile/payments/store' , [PaymentCardController::class , 'store'])->name('profile.payments.store');
 Route::get('/profile/addresses' , [ProfileController::class , 'addresses'])->name('profile.addresses');
 Route::get('/profile/change-password' , [ProfileController::class , 'changePassword'])->name('profile.change.password');
 Route::post('/profile/update' , [ProfileController::class , 'update'])->name('profile.update');

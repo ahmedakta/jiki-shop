@@ -100,13 +100,7 @@ class ProfileController extends Controller
         if($request->expectsJson()){
             return response()->json(['success' => true ,'data' => $paymentCards]);
         }
-        return view('frontend.products.checkout' , compact('addresses'));
-    }
-
-    // User Payments
-    public function payments()
-    {
-        return view('frontend.user_payments');
+        return view('frontend.user_payments' , compact('paymentCards'));
     }
 
     // User Addresses

@@ -5959,3 +5959,8 @@ label {
 .btn-link{
   color:black
 }
+
+#nav-tabContent{
+  background-color: white;
+  border-radius: 5%;
+}
