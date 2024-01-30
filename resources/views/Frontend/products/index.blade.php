@@ -245,8 +245,4 @@
 			</div>
 		</div>
 	</div>
-    <!-- Access JSON data -->
-    <script>
-        var jsonData = {!! $jsonData !!};
-    </script>
 @endsection

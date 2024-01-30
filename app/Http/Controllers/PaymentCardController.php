@@ -9,7 +9,7 @@ class PaymentCardController extends Controller
 {
     public function index()
     {
-
+    
     }
 
     public function store(Request $request)
@@ -24,7 +24,7 @@ class PaymentCardController extends Controller
             'isdefault' => 0,
             'status' => 1,
         ]);
-        $data = $user->paymentCards();
+        $data = $user->paymentCards;
         if($request->expectsJson()){
             return response()->json(['success' => true ,'data' => $data]);
         }

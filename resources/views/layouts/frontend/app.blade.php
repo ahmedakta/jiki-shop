@@ -429,11 +429,22 @@
     <script src="{{ asset('theme/js/gmaps.min.js') }}"></script>
     <script src="{{ asset('theme/js/main.js') }}"></script>
     {{-- Angular Js Section --}}
+    @if(isset($jsonData))
+        <script>
+         var jsonData = {!! $jsonData !!};
+        </script>
+    @else
+        <script>
+            var jsonData = [];
+        </script>
+    @endif
     <script>
+        // <!-- Access JSON data -->
         var app = angular.module('App', []);
         app.controller('AppController', function($scope, $http , $timeout) {
             $scope.data = jsonData;
             $scope.message = null;
+            // Todo Move These To App Service Providor
             $http.get('/cart').then(function(response) {
                 $scope.cart = response.data.data;
                 $scope.cartItems = Object.keys(response.data.data).length;

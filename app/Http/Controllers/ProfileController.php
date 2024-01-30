@@ -95,12 +95,11 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         $paymentCards = $user->paymentCards;
-        $paymentCards = convertJson($paymentCards);
         // Check requset
         if($request->expectsJson()){
             return response()->json(['success' => true ,'data' => $paymentCards]);
         }
-        return view('frontend.user_payments' , compact('paymentCards'));
+        return view('frontend.user_payments')->with('jsonData' , $paymentCards->toJson());;
     }
 
     // User Addresses
