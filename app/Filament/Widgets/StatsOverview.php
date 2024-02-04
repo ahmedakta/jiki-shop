@@ -13,9 +13,9 @@ class StatsOverview extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Orders Today', Order::count()),
-            Stat::make('Bounce rate', '21%'),
-            Stat::make('Average time on page', '3:12'),
+            Stat::make('Orders Today', Order::whereDate('created_at' , today())->count()),
+            Stat::make('Total Orders', Order::count()),
+            Stat::make('', '%12'),
         ];
     }
 }
