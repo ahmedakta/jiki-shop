@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\OfferResource\Pages;
-use App\Filament\Resources\OfferResource\RelationManagers;
-use App\Models\Offer;
+use App\Filament\Resources\BlogResource\Pages;
+use App\Filament\Resources\BlogResource\RelationManagers;
+use App\Models\Blog;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,15 +13,15 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class OfferResource extends Resource
+class BlogResource extends Resource
 {
-    protected static ?string $model = Offer::class;
+    protected static ?string $model = Blog::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-arrow-trending-down';
+    protected static ?string $navigationIcon = 'heroicon-o-pencil';
 
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $navigationGroup = 'SHOP';
+    protected static ?string $navigationGroup = 'BLOG';
 
     public static function form(Form $form): Form
     {
@@ -60,9 +60,9 @@ class OfferResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListOffers::route('/'),
-            'create' => Pages\CreateOffer::route('/create'),
-            'edit' => Pages\EditOffer::route('/{record}/edit'),
+            'index' => Pages\ListBlogs::route('/'),
+            'create' => Pages\CreateBlog::route('/create'),
+            'edit' => Pages\EditBlog::route('/{record}/edit'),
         ];
     }
 }

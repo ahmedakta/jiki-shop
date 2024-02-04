@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Providers\Filament\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -40,13 +41,15 @@ class AdminPanelProvider extends PanelProvider
                     ->url('https://instagram/ahmdekta')
                     ->icon('heroicon-o-pencil-square')
                     ->group('Social Media')
-                    ->sort(2)
+                    ->sort(6)
                     // ->visible(fn(): bool => auth()->user()->can('view'))
             ])
-            // ->navigationGroups([
-            //     'Shop',
-            //     'Social Media',
-            // ])
+            ->navigationGroups([
+                'SHOP',
+                'CATEGORIES',
+                'BLOG',
+                'Social Media',
+            ])
             ->userMenuItems([
                 MenuItem::make()
                 ->label('Settings')
@@ -75,6 +78,7 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->databaseNotifications()
             ->authMiddleware([
                 Authenticate::class,
             ]);

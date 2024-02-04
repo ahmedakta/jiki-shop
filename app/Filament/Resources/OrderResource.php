@@ -17,7 +17,7 @@ class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
 
     protected static ?int $navigationSort = 2;
 
@@ -26,8 +26,17 @@ class OrderResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         // return 'NEW';
-        return static::getModel()::count();
+        return static::getModel()::whereDate('created_at' , today())->count();
     }
+    // public static function getNavigationGroups(): void
+    // {
+    //    Filament::registerNavigationGroups([
+    //         NavigationGroup::make()
+    //         ->label('Users')
+    //         ->icon('heroicon-o-users')
+    //         ->collapsed(),
+    //    ]);
+    // }
 
     public static function getNavigationBadgeColor(): ?string
     {

@@ -19,7 +19,14 @@ class CategoryResource extends Resource
     
     public static ?string $navigationLabel = 'Categories'; // this for change the default text of Resource
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
+    // truck -for shipping later
+    // ellipsis-horizontal : 3 poins (or vertival)
+    // bell notifiaction
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationGroup = 'CATEGORIES';
 
     public static function form(Form $form): Form
     {
