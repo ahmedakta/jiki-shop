@@ -17,11 +17,14 @@ class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
+    protected static ?int $navigationSort =2;
+
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
 
-    protected static ?int $navigationSort = 2;
+    public static ?string $navigationLabel = 'Orders'; // this for change the default text of Resource
 
     protected static ?string $navigationGroup = 'SHOP';
+    
 
     public static function getNavigationBadge(): ?string
     {

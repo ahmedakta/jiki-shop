@@ -12,21 +12,25 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\IconColumn; 
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
     
     public static ?string $navigationLabel = 'Categories'; // this for change the default text of Resource
 
+    protected static ?string $modelLabel = 'Categories';
+    
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
     // truck -for shipping later
     // ellipsis-horizontal : 3 poins (or vertival)
     // bell notifiaction
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationGroup = 'CATEGORIES';
+
 
     public static function form(Form $form): Form
     {
@@ -40,7 +44,9 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id'),
+                TextColumn::make('category_name')->sortable()->searchable(),
+                TextColumn::make('category_slug'),
             ])
             ->filters([
                 //

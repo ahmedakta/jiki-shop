@@ -19,9 +19,10 @@ class OfferResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-trending-down';
 
-    protected static ?int $navigationSort = 3;
-
     protected static ?string $navigationGroup = 'SHOP';
+
+    protected static ?string $navigationParentItem = 'Products';
+
 
     public static function form(Form $form): Form
     {

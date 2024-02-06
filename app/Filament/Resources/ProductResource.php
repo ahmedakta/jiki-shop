@@ -11,9 +11,11 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Resources\Resource;
@@ -77,22 +79,33 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Card::make()
+                Card::make('Create a product')
+                ->description('Create product over here.')
+                ->collapsible()
+                // ->aside()
                 ->schema([
-                    TextInput::make('product_title')->placeholder('Title'),
-                    Textarea::make('product_desc')->placeholder('Description'),
-                    Select::make('category_id',)->relationship('category' , 'category_name'),
-                    TextInput::make('product_price')->placeholder('Price'),
-                    FileUpload::make('product_photos'),
-                    TextInput::make('product_stocks')->placeholder('Stocks'),
-                    Toggle::make('product_water_resistance'),
-                    Toggle::make('product_customization'),
+                    TextInput::make('product_title')->placeholder('Title')->required(),
+                    Select::make('category_id',)->relationship('category' , 'category_name')->required(),
+                    MarkdownEditor::make('product_desc')->placeholder('Description')->columnSpan('full')->required(),
+                    FileUpload::make('product_photos')->columnSpan('full'),//->disk('public')->directory('images')
+                    TextInput::make('product_price')->placeholder('Price')->required(),
+                    TextInput::make('product_stocks')->placeholder('Stocks')->required(),
                     ToggleButtons::make('status')->options([
                         '2' => 'Draft',
                         '3' => 'Scheduled',
                         '1' => 'Published'
-                    ]),
-                ])
+                        ])->required(),
+                    ])->columns(2),
+                    Section::make('Features')->schema([
+                            Toggle::make('product_water_resistance')->required(),
+                            Toggle::make('product_customization')->required(),
+                            
+                    ])->columns([
+                        'default'=>2, // responsife settings
+                        'md' => 2,
+                        'lg' => 3,
+                        'xl' => 4,
+                    ])
             ]);
     }
 
