@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+    const PARENT_ID = 0;
     const PRODUCT_CATEGORIES = 1;
     const PAGES_CATEGORIES = 2;
     const FEATURES_CATEGORIES = 3;

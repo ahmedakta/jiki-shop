@@ -24,7 +24,12 @@ class ListCategories extends ListRecords
     public function getTabs(): array
     {
         return [
-            'All' => Tab::make(),
+            'All' => Tab::make('All')
+            ->modifyQueryUsing(function (Builder $query)
+                {
+                    return $query->where('parent_id' , '!=' , 0);
+                }
+            ),
             'Products' => Tab::make('Products Categories')
             ->badge(0)
             ->modifyQueryUsing(function (Builder $query)

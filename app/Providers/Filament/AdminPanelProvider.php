@@ -47,6 +47,7 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 'SHOP',
                 'CATEGORIES',
+                'PAGES',
                 'BLOG',
                 'Social Media',
             ])
