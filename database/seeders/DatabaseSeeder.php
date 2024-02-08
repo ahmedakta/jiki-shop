@@ -91,7 +91,7 @@ class DatabaseSeeder extends Seeder
             'category_name' => '=SEPERATOR=',
             'category_slug' => 'seperator',
             'category_desc' => 'Seperator', 
-            'status' => 1,
+            'status' => 0,
         ]);
         // Home page slider offers
         \App\Models\Category::factory()->create([

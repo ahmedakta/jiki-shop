@@ -10,11 +10,12 @@ use App\Models\Order;
 
 class SalesChart extends ChartWidget
 {
-    
-    protected static ?int $sort = 2; // this for sort element of dashboard
+    protected static ?int $sort = 4; // this for sort element of dashboard
     use ExposesTableToWidgets; // this is making the data real-time
     protected static ?string $heading = 'Sales This Month';
-
+    protected int | string | array $columnSpan = 'full';
+    
+    protected static string $color = 'info';
     protected function getData(): array
     {
         $data = Trend::model(Order::class)
@@ -29,7 +30,7 @@ class SalesChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Created orders',
+                    'label' => 'Sales',
                     'data' => $data->map(fn(TrendValue $value) => $value->aggregate),
                 ],
             ],
@@ -39,6 +40,6 @@ class SalesChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'pie';
+        return 'bar';
     }
 }

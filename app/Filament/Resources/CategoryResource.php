@@ -14,6 +14,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn; 
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
@@ -36,7 +40,14 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Card::make('Create a category')
+                ->description('Create category over here.')
+                ->collapsible()
+                // ->aside()
+                ->schema([
+                    TextInput::make('category_name')->placeholder('Title')->required(),
+                    Select::make('parent_id')->options(Category::where(['parent_id' => 0 , 'status' => 1])->pluck('category_name', 'id'))->required(),
+                ])
             ]);
     }
 

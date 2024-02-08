@@ -19,7 +19,7 @@ class CategoryFactory extends Factory
     {
         return [
             'language_id' => 1,
-            'parent_id' => 0,
+            'parent_id' => 1,
             'category_name' => $this->faker->word,
             'category_slug' => $this->faker->sentence,
             'category_desc' => $this->faker->sentence,

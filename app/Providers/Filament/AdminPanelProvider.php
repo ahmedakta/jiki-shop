@@ -54,7 +54,7 @@ class AdminPanelProvider extends PanelProvider
             ->userMenuItems([
                 MenuItem::make()
                 ->label('Settings')
-                ->url('')
+                ->url('#')
                 ->icon('heroicon-o-cog-6-tooth'),
                 'logout' => MenuItem::make()->label('Log Out'),
             ])

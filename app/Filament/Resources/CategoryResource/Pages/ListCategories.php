@@ -25,20 +25,21 @@ class ListCategories extends ListRecords
     {
         return [
             'All' => Tab::make('All')
+            ->badge(Category::where('parent_id','!=' ,  0)->where('status' , 1)->count())
             ->modifyQueryUsing(function (Builder $query)
                 {
                     return $query->where('parent_id' , '!=' , 0);
                 }
             ),
             'Products' => Tab::make('Products Categories')
-            ->badge(0)
+            ->badge(Category::where('parent_id' , 1)->count())
             ->modifyQueryUsing(function (Builder $query)
                 {
                     return $query->where('parent_id' , Category::PRODUCT_CATEGORIES);
                 }
             ),
             'Pages' => Tab::make('Pages Categories')
-            ->badge(0)
+            ->badge(Category::where('parent_id' , 2)->count())
             ->modifyQueryUsing(function (Builder $query)
                 {
                     return $query->where('parent_id' , Category::PAGES_CATEGORIES);

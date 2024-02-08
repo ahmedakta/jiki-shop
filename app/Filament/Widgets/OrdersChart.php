@@ -10,9 +10,10 @@ use App\Models\Order;
 
 class OrdersChart extends ChartWidget
 {
-    protected static ?int $sort = 2; // this for sort element of dashboard
+    protected static ?int $sort = 3; // this for sort element of dashboard
     use ExposesTableToWidgets; // this is making the data real-time
     protected static ?string $heading = 'Orders This Month';
+    protected static string $color = 'warning';
 
     protected function getData(): array
     {
@@ -30,6 +31,7 @@ class OrdersChart extends ChartWidget
                 [
                     'label' => 'Created orders',
                     'data' => $data->map(fn(TrendValue $value) => $value->aggregate),
+                    'backgroundColor' => '#421321d'
                 ],
             ],
             'labels' => $data->map(fn (TrendValue $value) => $value->date),

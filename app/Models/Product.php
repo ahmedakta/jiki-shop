@@ -28,7 +28,7 @@ class Product extends Model
     public function category()
     {
         return $this->belongsToMany(Category::class, 'product_categories')
-        ->where('parent_id' , '=' , 11);
+        ->where('parent_id' , '=' , 1);
     }
     public function brand()
     {

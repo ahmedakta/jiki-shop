@@ -87,9 +87,16 @@ class ProductResource extends Resource
                     TextInput::make('product_title')->placeholder('Title')->required(),
                     Select::make('category_id',)->relationship('category' , 'category_name')->required(),
                     MarkdownEditor::make('product_desc')->placeholder('Description')->columnSpan('full')->required(),
-                    FileUpload::make('product_photos')->columnSpan('full'),//->disk('public')->directory('images')
-                    TextInput::make('product_price')->placeholder('Price')->required(),
-                    TextInput::make('product_stocks')->placeholder('Stocks')->required(),
+                    FileUpload::make('product_photos')
+                    ->multiple()
+                    ->minFiles(2)
+                    ->maxFiles(5)
+                    // ->acceptedFileTypes(['.jpeg' , '.jpg' , '.png'])
+                    ->enableReordering()
+                    ->enableDownload()
+                    ->columnSpan('full'),//->disk('public')->directory('images')
+                    TextInput::make('product_price')->numeric()->suffixIcon('heroicon-m-globe-alt')->inputMode('decimal')->placeholder('Price')->required(),
+                    TextInput::make('product_stocks')->numeric()->placeholder('Stocks')->required(),
                     ToggleButtons::make('status')->options([
                         '2' => 'Draft',
                         '3' => 'Scheduled',
