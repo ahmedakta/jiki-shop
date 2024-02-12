@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\IconColumn;
 
 class UserResource extends Resource
 {
@@ -31,7 +33,21 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id'),
+                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('email'),
+                IconColumn::make('status')
+                ->options([
+                    'heroicon-o-check-circle' => fn ($state , $record): bool => $record->status === 1,
+                    'heroicon-o-x-circle' => fn ($state , $record): bool => $record->status === 0,
+                    'heroicon-o-clock' => 3,
+                ])->colors([
+                    'warning' => 3,
+                    'danger' => 0,
+                    'success' => 1,
+                ]),
+                TextColumn::make('created_at')
+                ->date()
             ])
             ->filters([
                 //
