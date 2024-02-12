@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\TextInput;
 
 class UserResource extends Resource
 {
@@ -25,7 +27,17 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Card::make('Create a user')
+                ->description('Create user over here.')
+                ->collapsible()
+                // ->aside()
+                ->schema([
+                    TextInput::make('name')->placeholder('Name')->required(),
+                    TextInput::make('email')->email()->placeholder('E-mail')->required(),
+                    TextInput::make('password')->password()->revealable()->placeholder('Password')->required(),
+                    // TextInput::make('name')->placeholder('Title')->required(),
+                    // Select::make('parent_id')->options(Category::where(['parent_id' => 0 , 'status' => 1])->pluck('category_name', 'id'))->required(),
+                ])
             ]);
     }
 
