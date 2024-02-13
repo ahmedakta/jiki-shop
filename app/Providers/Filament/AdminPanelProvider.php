@@ -37,19 +37,17 @@ class AdminPanelProvider extends PanelProvider
             ->globalSearchKeyBindings(['ctrl+k'])
             ->sidebarCollapsibleOnDesktop()
             ->navigationItems([
-                NavigationItem::make('Instagram')
-                    ->url('https://instagram/ahmdekta')
+                NavigationItem::make('Personal Website')
+                    ->url('https://ahmedakta.com')
                     ->icon('heroicon-o-pencil-square')
-                    ->group('Social Media')
+                    ->group('CREATOR')
                     ->sort(6)
                     // ->visible(fn(): bool => auth()->user()->can('view'))
             ])
             ->navigationGroups([
                 'SHOP',
                 'CATEGORIES',
-                'PAGES',
-                'BLOG',
-                'Social Media',
+                'Creator',
             ])
             ->userMenuItems([
                 MenuItem::make()
