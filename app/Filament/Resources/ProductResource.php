@@ -89,6 +89,10 @@ class ProductResource extends Resource
                     MarkdownEditor::make('product_desc')->placeholder('Description')->columnSpan('full')->required(),
                     FileUpload::make('product_photos')
                     ->multiple()
+                    ->imageEditor() // for edit image
+                    ->appendFiles()// when add new one ,adding it in the end
+                    ->uploadingMessage('Uploading attachment...') // set message during upload
+                    ->openable()
                     ->minFiles(2)
                     ->maxFiles(5)
                     // ->acceptedFileTypes(['.jpeg' , '.jpg' , '.png'])

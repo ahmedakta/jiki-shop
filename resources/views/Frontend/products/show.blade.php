@@ -23,9 +23,9 @@
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
 					<div class="s_Product_carousel">
-						@foreach (json_decode($product->product_photos) as $item)
+						@foreach ($product->product_photos as $item)
 							<div class="single-prd-item">
-								<img class="img-fluid" src="{{asset($item->name)}}" alt="">
+								<img class="img-fluid" src="{{asset('storage/' . $item['name'])}}" alt="">
 							</div>
 						@endforeach
 					</div>
