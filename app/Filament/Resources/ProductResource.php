@@ -84,7 +84,7 @@ class ProductResource extends Resource
                 ->collapsible()
                 // ->aside()
                 ->schema([
-                    TextInput::make('product_title')->placeholder('Title')->required(),
+                    TextInput::make('product_title')->placeholder('Title')->hint('hi')->required(),
                     Select::make('category_id',)->relationship('category' , 'category_name')->required(),
                     MarkdownEditor::make('product_desc')->placeholder('Description')->columnSpan('full')->required(),
                     FileUpload::make('product_photos')
@@ -98,6 +98,7 @@ class ProductResource extends Resource
                     // ->acceptedFileTypes(['.jpeg' , '.jpg' , '.png'])
                     ->enableReordering()
                     ->enableDownload()
+                    ->disk('public')->directory('app/public')
                     ->columnSpan('full'),//->disk('public')->directory('images')
                     TextInput::make('product_price')->numeric()->suffixIcon('heroicon-m-globe-alt')->inputMode('decimal')->placeholder('Price')->required(),
                     TextInput::make('product_stocks')->numeric()->placeholder('Stocks')->required(),

@@ -24,8 +24,9 @@ class Product extends Model
         'status',
     ];
     protected $casts = [
-        'product_photos' => 'json',
+        'product_photos' => 'array',
     ];
+
     // set category relationshp's
     public function category()
     {
